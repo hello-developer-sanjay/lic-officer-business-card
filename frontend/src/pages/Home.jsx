@@ -1062,7 +1062,7 @@ Join hands with Jitendra Patidar and the LIC India team today to experience the 
     <Next>
       <span className="light"> एलआईसी नीमच भारतीय जीवन बीमा निगम की एक शाखा है, जिसका प्रबंधन विकास अधिकारी (डीओ) के रूप में जितेंद्र पाटीदार द्वारा किया जाता है। यह शाखा नीमच, मंदसौर, रतनगढ़, सिंगोली, मनासा, जावद और सरवानीयाँ महाराज के लोगों की सेवा करती है। एलआईसी नीमच में, हम परिवारों की आर्थिक सुरक्षा पर जोर देते हैं। जितेंद्र के मार्गदर्शन में, हम इन क्षेत्रों में सरल और प्रभावी बीमा विकल्प प्रदान करते हैं, ताकि सभी लोग अपनी आर्थिक सुरक्षा को सुनिश्चित कर सकें।</span><br />
     </Next>
-    
+    <Next> LIC Neemuch Office Address : Vikas Nagar, Schme No. 14-3, Neemuch Chawni, Neemuch, Madhya Pradesh 458441 </Next>
     <Text>➥ Curious to know more about LIC <a style={{ color: '#FAF7F7', padding: '2px 4px', border: '2px solid #ff6b6b', borderRadius: '30px', cursor: 'pointer', textDecoration: "none" }} href="https://licindia.in/hi/home" target="_blank">LIC Website</a> to explore!</Text>
   </Introduction>
 </Onlyforlap>
