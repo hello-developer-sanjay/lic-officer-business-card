@@ -548,7 +548,7 @@ const NavHeading = styled.h2`
 
 const Footer = () => {
   const catchyMessages = [
-    "LIC एजेंट बनने के लिए आज ही संपर्क करें जीतेंद्र पाटीदार अधिकारी(LIC, Neemuch) से । भारतीय जीवन बीमा निगम ,नीमच (मध्य प्रदेश)",
+    "LIC एजेंट बनने के लिए आज ही संपर्क करें जितेंद्र पाटीदार अधिकारी(LIC, Neemuch) से । भारतीय जीवन बीमा निगम ,नीमच (मध्य प्रदेश)",
   ];
   const [isToastVisible, setIsToastVisible] = useState(false);
   const copyContactNumber = () => {
@@ -969,7 +969,7 @@ Join hands with Jitendra Patidar and the LIC India team today to experience the 
            "@type": "Organization",
            "name": "LIC DO" 
          },
-         "url": "https://jitendra-patidar.vercel.app/",
+         "url": "https://lic-neemuch-jitendra-patidar.vercel.app/",
          "sameAs": [
            "https://www.linkedin.com/in/sanjay-patidar-25b580292/",
            "https://github.com/hello-developer-sanjay",
