@@ -650,7 +650,6 @@ useEffect(() => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const name = formData.get("name");
-    const email = formData.get("email");
     const feedback = formData.get("message");
     const query = formData.get("query");
   
@@ -680,7 +679,6 @@ useEffect(() => {
         },
         body: JSON.stringify({
           name,
-          email,
           feedback: feedback || query,
           query,
         }),
