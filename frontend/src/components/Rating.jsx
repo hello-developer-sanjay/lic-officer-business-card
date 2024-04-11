@@ -31,30 +31,33 @@ const StarRating = () => {
     const newRating = starIndex === rating ? 0 : starIndex;
     setRating(newRating);
     localStorage.setItem('rating', newRating);
-
+  
     try {
       const currentUser = localStorage.getItem('currentUser');
       if (!currentUser) {
         const randomUserId = Math.random().toString(36).substring(7);
         localStorage.setItem('currentUser', randomUserId);
       }
-
+  
       await axios.post('https://eduxcel-api3-j9a2.onrender.com/ratings', {
         userId: localStorage.getItem('currentUser'),
         rating: newRating,
       });
-
+  
       const response = await axios.get('https://eduxcel-api3-j9a2.onrender.com/ratings');
       const { data } = response;
       setUsersCount(data.length);
       setAverageRating(
         data.reduce((sum, rating) => sum + rating.rating, 0) / data.length
       );
+  
+      // Update current rating display
+      setRating(newRating); // Update the current rating to the new rating
     } catch (error) {
       console.error('Error updating ratings:', error);
     }
   };
-
+  
   const handleStarHover = (starIndex) => {
     setHoverRating(starIndex);
   };
@@ -72,13 +75,18 @@ const StarRating = () => {
         const starValue = index + 1;
         return (
           <span
-            key={index}
-            style={{ cursor: 'pointer' }}
-            onClick={() => handleStarClick(starValue)}
-            onMouseEnter={() => handleStarHover(starValue)}
-          >
-            {starValue <= (hoverRating || rating) ? '★' : '☆'}
-          </span>
+          key={index}
+          style={{
+            cursor: 'pointer',
+            fontSize: '24px', // Adjust size as needed
+            color: starValue <= (hoverRating || rating) ? '#ffd700' : '#808080', // Use gold color for filled stars and gray color for empty stars
+          }}
+          onClick={() => handleStarClick(starValue)}
+          onMouseEnter={() => handleStarHover(starValue)}
+        >
+          {starValue <= (hoverRating || rating) ? '★' : '☆'}
+        </span>
+        
         );
       })}
       <p>Current Rating: {hoverRating || rating}/5</p>
