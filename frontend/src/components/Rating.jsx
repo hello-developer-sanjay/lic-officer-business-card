@@ -57,7 +57,20 @@ const StarRating = () => {
       console.error('Error updating ratings:', error);
     }
   };
-  
+  const renderStars = (ratingValue) => {
+    const starCount = Math.round(ratingValue); // Round the rating value to the nearest whole number
+    const stars = [];
+
+    for (let i = 0; i < 5; i++) {
+      if (i < starCount) {
+        stars.push(<span key={i} style={{ color: '#ffd700' }}>★</span>);
+      } else {
+        stars.push(<span key={i} style={{ color: '#808080' }}>☆</span>);
+      }
+    }
+
+    return stars;
+  };
   const handleStarHover = (starIndex) => {
     setHoverRating(starIndex);
   };
@@ -89,10 +102,17 @@ const StarRating = () => {
         
         );
       })}
-    <p>My Rating: {hoverRating || rating}/5</p>
-<p>Total Users: {usersCount}</p>
-<p>Overall Rating: {isNaN(averageRating) ? '0' : averageRating.toFixed(1)}/5</p>
+      {/* Stars for average rating */}
+     
+      {/* Your existing code for displaying user's rating, total users, and overall rating */}
+      <p>My Rating: {hoverRating || rating}/5</p>
+      <p>Total Users: {usersCount}</p>
+      <div style={{ marginTop: '10px' }}>
+        {renderStars(averageRating)}
+        <span style={{ marginLeft: '10px' }}>{isNaN(averageRating) ? '0.0' : averageRating.toFixed(1)}/5</span>
+      </div>
 
+      <p>Overall Rating: {isNaN(averageRating) ? '0' : averageRating.toFixed(1)}/5</p>
     </div>
   );
 };
