@@ -17,7 +17,15 @@ const Label = styled.label`
   margin-bottom: 10px;
   font-weight: bold;
 `;
-
+const ReviewsHeading = styled.h2`
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  /* Add any additional styling you prefer */
+`;  
 const Input = styled.input`
   width: 100%;
   padding: 10px;
@@ -26,7 +34,28 @@ const Input = styled.input`
   border-radius: 5px;
   box-sizing: border-box;
 `;
-
+const Button = styled.button`
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #ff6b6b, #6078ea);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+`;
 const TextArea = styled.textarea`
   width: 100%;
   height: 100px;
@@ -37,19 +66,7 @@ const TextArea = styled.textarea`
   box-sizing: border-box;
 `;
 
-const Button = styled.button`
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
 
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
 
 // Styled review list components
 const ReviewsWrapper = styled.div`
@@ -128,7 +145,7 @@ const Review = () => {
       </FormWrapper>
       
       <ReviewsWrapper>
-        <h2>Reviews</h2>
+       <ReviewsHeading>Reviews</ReviewsHeading>
         <ul>
           {reviews.map((review) => (
             <ReviewItem key={review._id}>
