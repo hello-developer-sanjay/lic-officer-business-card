@@ -1,6 +1,7 @@
 import  { useEffect, useRef } from 'react';
 import profileImage1 from '../assets/jitendraprofilephoto.jpg';
 import benefit from '../styles/benefit.css';
+import Rating from '../components/Rating';
 
 import styled, { keyframes } from 'styled-components';
 import { motion, AnimatePresence,  } from "framer-motion";
@@ -1064,6 +1065,8 @@ Join hands with Jitendra Patidar and the LIC India team today to experience the 
     <Text>➥ Curious to know more about LIC <a style={{ color: '#FAF7F7', padding: '2px 4px', border: '2px solid #ff6b6b', borderRadius: '30px', cursor: 'pointer', textDecoration: "none" }} href="https://licindia.in/hi/home" target="_blank">LIC Website</a> to explore!</Text>
   </Introduction>
 </Onlyforlap>
+         <Rating/>
+
 </FlexContainer>
 
   
