@@ -1,66 +1,64 @@
-import  { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const StarRating = () => {
   const [rating, setRating] = useState(() => {
     const storedRating = localStorage.getItem('rating');
     return storedRating ? parseFloat(storedRating) : 0;
-  }); // Initial rating state
-  const [hoverRating, setHoverRating] = useState(0); // Initial hover rating state
-  const [users, setUsers] = useState(() => {
-    const storedUsers = JSON.parse(localStorage.getItem('users'));
-    return storedUsers || {};
-  }); // Initial users state
-  const [averageRating, setAverageRating] = useState(0); // Initial average rating state
+  });
+  const [hoverRating, setHoverRating] = useState(0);
+  const [usersCount, setUsersCount] = useState(0);
+  const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
-    const storedRating = localStorage.getItem('rating');
-    if (storedRating) {
-      setRating(parseFloat(storedRating));
-    }
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://eduxcel-api3-j9a2.onrender.com/ratings');
+        const { data } = response;
+        setUsersCount(data.length);
+        setAverageRating(
+          data.reduce((sum, rating) => sum + rating.rating, 0) / data.length
+        );
+      } catch (error) {
+        console.error('Error fetching ratings:', error);
+      }
+    };
 
-    const storedUsers = JSON.parse(localStorage.getItem('users'));
-    if (storedUsers) {
-      setUsers(storedUsers);
-    }
-  }, []); // Runs on component mount only
+    fetchData();
+  }, []);
 
-  useEffect(() => {
-    const usersCount = Object.keys(users).length;
-
-    // Calculate average rating
-    const ratingsSum = Object.values(users).reduce((acc, curr) => acc + curr, 0);
-    const average = usersCount > 0 ? ratingsSum / usersCount : 0;
-    setAverageRating(average);
-  }, [users]); // Runs whenever users state changes
-
-  // Function to handle when a star is clicked
-  const handleStarClick = (starIndex) => {
-    // If the star is already selected, deselect it
-    // Otherwise, set the rating to the index of the clicked star
+  const handleStarClick = async (starIndex) => {
     const newRating = starIndex === rating ? 0 : starIndex;
     setRating(newRating);
     localStorage.setItem('rating', newRating);
 
-    // Set the current user rating
-    const currentUser = localStorage.getItem('currentUser');
-    if (!currentUser) {
-      const randomUserId = Math.random().toString(36).substring(7);
-      localStorage.setItem('currentUser', randomUserId);
-    }
+    try {
+      const currentUser = localStorage.getItem('currentUser');
+      if (!currentUser) {
+        const randomUserId = Math.random().toString(36).substring(7);
+        localStorage.setItem('currentUser', randomUserId);
+      }
 
-    // Update users rating
-    const updatedUsers = { ...users };
-    updatedUsers[localStorage.getItem('currentUser')] = newRating;
-    localStorage.setItem('users', JSON.stringify(updatedUsers));
-    setUsers(updatedUsers);
+      await axios.post('https://eduxcel-api3-j9a2.onrender.com/ratings', {
+        userId: localStorage.getItem('currentUser'),
+        rating: newRating,
+      });
+
+      const response = await axios.get('https://eduxcel-api3-j9a2.onrender.com/ratings');
+      const { data } = response;
+      setUsersCount(data.length);
+      setAverageRating(
+        data.reduce((sum, rating) => sum + rating.rating, 0) / data.length
+      );
+    } catch (error) {
+      console.error('Error updating ratings:', error);
+    }
   };
 
-  // Function to handle when mouse enters a star
   const handleStarHover = (starIndex) => {
     setHoverRating(starIndex);
   };
 
-  // Function to handle when mouse leaves the star container
   const handleStarLeave = () => {
     setHoverRating(0);
   };
@@ -84,10 +82,11 @@ const StarRating = () => {
         );
       })}
       <p>Current Rating: {hoverRating || rating}/5</p>
-      <p>Users Count: {Object.keys(users).length}</p>
-      <p>Average Rating: {averageRating.toFixed(1)}/5</p>
+      <p>Users Count: {usersCount}</p>
+      <p>Average Rating: {isNaN(averageRating) ? '0' : averageRating.toFixed(1)}/5</p>
     </div>
   );
 };
 
 export default StarRating;
+  
