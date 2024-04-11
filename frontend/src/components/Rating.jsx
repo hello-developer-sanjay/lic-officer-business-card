@@ -89,9 +89,10 @@ const StarRating = () => {
         
         );
       })}
-      <p>Current Rating: {hoverRating || rating}/5</p>
-      <p>Users Count: {usersCount}</p>
-      <p>Average Rating: {isNaN(averageRating) ? '0' : averageRating.toFixed(1)}/5</p>
+    <p>My Rating: {hoverRating || rating}/5</p>
+<p>Total Users: {usersCount}</p>
+<p>Overall Rating: {isNaN(averageRating) ? '0' : averageRating.toFixed(1)}/5</p>
+
     </div>
   );
 };
