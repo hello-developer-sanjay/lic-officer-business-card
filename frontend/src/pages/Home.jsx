@@ -675,7 +675,7 @@ useEffect(() => {
         successMessage = "प्रश्न भेजा गया! हमारे उत्तर की प्रतीक्षा करें, जो केवल आपके लिए तैयार किया गया है।";
       }
   
-      const response = await fetch(`https://eduxcel-api3-j9a2.onrender.com/api/${endpoint}`, {
+      const response = await fetch(`https://eduxcel-api-13april.onrender.com/api/${endpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
