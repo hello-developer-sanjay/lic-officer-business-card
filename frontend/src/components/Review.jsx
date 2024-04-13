@@ -106,7 +106,7 @@ const Review = () => {
     if (!username || !comment || submitting) return; // Prevent submission while already submitting
     try {
       setSubmitting(true); // Set submitting to true when starting the submission
-      const response = await axios.post('https://eduxcel-api-13april.onrender.com/reviews', {
+      const response = await axios.post('https://eduxcel-api-13april.onrender.com/api/reviews', {
         username,
         comment,
       });
