@@ -803,7 +803,7 @@ Join hands with Jitendra Patidar and the LIC India team today to experience the 
  <meta name="author" content="Jitendra Patidar" />         <script type="application/ld+json">
        {JSON.stringify({
          '@context': 'http://schema.org',
-         '@type': 'ItemList',
+         '@type': 'Person',
          "name": "jitendra Patidar",
          "birthDate": "1998-07-01",
          "birthPlace": {
