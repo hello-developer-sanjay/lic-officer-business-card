@@ -207,7 +207,7 @@ const ProfileImage = styled(motion.img)`
   width: 350px;
   height: 350px;
   margin-top: 2rem;
-  margin-left: 10rem;
+  margin-left: 2rem;
 
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(255, 165, 0, 0.8), 0 0 20px rgba(255, 165, 0, 0.6);
