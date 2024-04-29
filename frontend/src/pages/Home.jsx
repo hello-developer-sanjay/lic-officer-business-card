@@ -391,7 +391,7 @@ const QueryButton = styled(SubmitButton)`
   color: white;
   border: none;
   border-radius: 30px;
-  padding: 10px 25px;
+  padding: 2px 10px;
   font-size: 1.3rem;
   cursor: pointer;
   font-family: 'Roboto', sans-serif;
@@ -1049,7 +1049,7 @@ Join hands with Jitendra Patidar and the LIC India team today to experience the 
 
     <Next>
     📞 Jitendra Patidar <span className="light"> LIC Neemuch Contact | Mobile Number : </span>{' '}
-      <a href="tel:+917987235207" id="contactNumber" style={{ textDecoration: 'none', color: '#007bff', fontWeight: 'bold' }}>+91 7987 235 207</a> 📞 | OR |
+      <a href="tel:+917987235207" id="contactNumber" style={{ textDecoration: 'none', color: '#007bff', fontWeight: 'bold' }}>+91 7987235207</a> 📞 | OR |
       
       <button onClick={copyContactNumber} style={{ marginLeft: '4px', color: '#fff', padding: '2px 4px', border: '2px solid #ff6b6b', borderRadius: '30px', cursor: 'pointer' }}>Copy Number</button>
     </Next>
@@ -1066,13 +1066,13 @@ Join hands with Jitendra Patidar and the LIC India team today to experience the 
       <span className="light"> एलआईसी नीमच भारतीय जीवन बीमा निगम की एक शाखा है, जिसका प्रबंधन विकास अधिकारी (डीओ) के रूप में जितेंद्र पाटीदार द्वारा किया जाता है। यह शाखा नीमच, मंदसौर, रतनगढ़, सिंगोली, मनासा, जावद और सरवानीयाँ महाराज के लोगों की सेवा करती है। एलआईसी नीमच में, हम परिवारों की आर्थिक सुरक्षा पर जोर देते हैं। जितेंद्र के मार्गदर्शन में, हम इन क्षेत्रों में सरल और प्रभावी बीमा विकल्प प्रदान करते हैं, ताकि सभी लोग अपनी आर्थिक सुरक्षा को सुनिश्चित कर सकें।</span><br />
     </Next>
     <Next> LIC Neemuch Office Address : Vikas Nagar, Schme No. 14-3, Neemuch Chawni, Neemuch, Madhya Pradesh 458441 </Next>
-    <Text>➥ Curious to know more about LIC <a style={{ color: '#FAF7F7', padding: '2px 4px', border: '2px solid #ff6b6b', borderRadius: '30px', cursor: 'pointer', textDecoration: "none" }} href="https://licindia.in/hi/home" target="_blank">LIC Website</a> to explore!</Text>
+    <Next> Curious to know more about LIC | Life Insurance Corporation of India (LIC)  <a style={{ color: '#FAF7F7', padding: '2px 4px', border: '2px solid #ff6b6b', borderRadius: '30px', cursor: 'pointer', textDecoration: "none" }} href="https://licindia.in/hi/home" target="_blank">LIC Website</a> to explore!</Next>
   </Introduction>
 </Onlyforlap>
 <Rating/>
 </FlexContainer>
 
-  
+<img style={{ margin: '20px', borderRadius: '10%', boxShadow: '0px 0px 20px rgba(255, 255, 255, 0.5), 0px 0px 40px rgba(255, 255, 255, 0.5), 0px 0px 60px rgba(255, 255, 255, 0.5), 0px 0px 80px rgba(255, 255, 255, 0.5)' }} src='https://sanjaybasket.s3.ap-south-1.amazonaws.com/lic-jay/lic-header1-jitendra.jpg' alt='Jitendra Patidar LIC Officer Neemuch, India'></img>
 
       <ContactForm
         initial={{ opacity: 0, y: 20 }}
