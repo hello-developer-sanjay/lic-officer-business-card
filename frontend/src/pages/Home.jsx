@@ -550,7 +550,7 @@ const NavHeading = styled.h2`
 
 const Home = () => {
   const catchyMessages = [
-    "LIC एजेंट बनने के लिए आज ही संपर्क करें जीतेंद्र पाटीदार अधिकारी(LIC, Neemuch) से । भारतीय जीवन बीमा निगम ,नीमच (मध्य प्रदेश)",
+    "LIC एजेंट बनने के लिए आज ही संपर्क करें जितेंद्र पाटीदार अधिकारी(LIC, Neemuch) से । भारतीय जीवन बीमा निगम ,नीमच (मध्य प्रदेश)",
   ];
   const [isToastVisible, setIsToastVisible] = useState(false);
   const copyContactNumber = () => {
