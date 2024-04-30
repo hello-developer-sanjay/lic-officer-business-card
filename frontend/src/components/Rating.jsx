@@ -13,7 +13,7 @@ const StarRating = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://eduxcel-api-14april.onrender.com/ratings');
+        const response = await axios.get('https://eduxcel-api-30april.onrender.com/ratings');
         const { data } = response;
         setUsersCount(data.length);
         setAverageRating(
@@ -44,7 +44,7 @@ const StarRating = () => {
         rating: newRating,
       });
   
-      const response = await axios.get('https://eduxcel-api-14april.onrender.com/ratings');
+      const response = await axios.get('https://eduxcel-api-30april.onrender.com/ratings');
       const { data } = response;
       setUsersCount(data.length);
       setAverageRating(
