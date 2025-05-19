@@ -1040,25 +1040,15 @@ useEffect(() => {
       </QueryButton>
       </ContactForm>
 
-
-
       <ToastContainer
   className="custom-toast-container"
   position="top-right"
   style={{ marginTop: '100px' }}
 />
-
-
-
-
-
-
-
-
     <Review/> 
     </FooterContainer>
 
-<Text>Discover the world of Jitendra Patidar : LIC Neemuch Development Officer (DO) | Innovator, Developer, and Founder. Ready to explore? <a style={{ color: '#FAF7F7', padding: '2px 4px', border: '2px solid #ff6b6b', borderRadius: '30px', cursor: 'pointer', textDecoration: 'none' }} href='https://jitendra-patidar.vercel.app/' target='_blank'>Jitendra Patidar</a> to dive in!</Text>
+<Text>Discover the world of Sanjay Patidar : Founder and Engineer at Zedemy | Ready to explore? <a style={{ color: '#FAF7F7', padding: '2px 4px', border: '2px solid #ff6b6b', borderRadius: '30px', cursor: 'pointer', textDecoration: 'none' }} href='https://zedemy.vercel.app' target='_blank'>Zedemy</a> to dive in!</Text>
 <Text>
   <span style={{ color: '#ffbb00', fontWeight: 'bold', fontSize: '1.2rem' }}>©</span> All rights reserved to&nbsp;
   <span style={{ fontWeight: 'bold', fontStyle: 'italic', color: '#ffbb00' }}>EduXcel</span> founded by&nbsp;
