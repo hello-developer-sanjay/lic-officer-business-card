@@ -543,11 +543,6 @@ const NavHeading = styled.h2`
   margin-bottom: 10px;
 `;
 
-
-
-
-
-
 const Home = () => {
   const catchyMessages = [
     "LIC एजेंट बनने के लिए आज ही संपर्क करें जितेंद्र पाटीदार अधिकारी(LIC, Neemuch) से । भारतीय जीवन बीमा निगम ,नीमच (मध्य प्रदेश)",
@@ -915,7 +910,7 @@ useEffect(() => {
         property="og:description"
         content="Contact Jitendra Patidar, LIC Development Officer in Neemuch, for insurance solutions and agent opportunities. Secure your future with LIC. Join now."
       />
-      <meta property="og:image" content="https://sanjaybasket.s3.ap-south-1.amazonaws.com/lic-jay/jitendraprofilephoto.jpg" />
+      <meta property="og:image" content="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp"/>
       <meta property="og:image:alt" content="Jitendra Patidar, LIC Development Officer" />
       <meta property="og:url" content="https://lic-neemuch-jitendra-patidar.vercel.app/" />
       <meta property="og:type" content="website" />
@@ -926,7 +921,7 @@ useEffect(() => {
         name="twitter:description"
         content="Contact Jitendra Patidar, LIC Development Officer in Neemuch, for insurance solutions and agent opportunities. Secure your future with LIC. Join now."
       />
-      <meta name="twitter:image" content="https://sanjaybasket.s3.ap-south-1.amazonaws.com/lic-jay/jitendraprofilephoto.jpg" />
+      <meta name="twitter:image" content="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp"/>
       <meta name="twitter:site" content="@jitendrapatidar" />
       <meta name="twitter:creator" content="@jitendrapatidar" />
       <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
@@ -1016,7 +1011,7 @@ useEffect(() => {
 <Rating/>
 </FlexContainer>
 
-<img style={{ margin: '20px', borderRadius: '10%', boxShadow: '0px 0px 20px rgba(255, 255, 255, 0.5), 0px 0px 40px rgba(255, 255, 255, 0.5), 0px 0px 60px rgba(255, 255, 255, 0.5), 0px 0px 80px rgba(255, 255, 255, 0.5)' }} src='https://sanjaybasket.s3.ap-south-1.amazonaws.com/lic-jay/lic-header1-jitendra.jpg' alt='Jitendra Patidar LIC Officer Neemuch, India'></img>
+<img style={{ margin: '20px', borderRadius: '10%', boxShadow: '0px 0px 20px rgba(255, 255, 255, 0.5), 0px 0px 40px rgba(255, 255, 255, 0.5), 0px 0px 60px rgba(255, 255, 255, 0.5), 0px 0px 80px rgba(255, 255, 255, 0.5)' }} src='https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp' alt='Jitendra Patidar LIC Officer Neemuch, India'></img>
 
       <ContactForm
         initial={{ opacity: 0, y: 20 }}
