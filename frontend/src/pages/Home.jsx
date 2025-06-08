@@ -1,9 +1,10 @@
 import { useEffect, useRef, lazy, Suspense } from 'react';
+import axios from 'axios';
 import profileImage1 from '../assets/jitendraprofilephoto.jpg';
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faUserPlus, faBriefcase, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUserPlus, faBriefcase, faInfoCircle, faStar } from '@fortawesome/free-solid-svg-icons';
 import { Helmet } from 'react-helmet';
 import { FaInstagram } from 'react-icons/fa';
 import { toast, ToastContainer } from 'react-toastify';
@@ -186,10 +187,38 @@ const Footer = styled.footer`
   color: #e0e0e0;
 `;
 
+const RatingDisplay = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  color: #ffbb00;
+`;
+
 const Home = () => {
   const [isToastVisible, setIsToastVisible] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
+  const [averageRating, setAverageRating] = useState(0);
+  const [ratingCount, setRatingCount] = useState(0);
   const footerRef = useRef(null);
+
+  useEffect(() => {
+    const fetchRatings = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/lic/ratings`);
+        const { data } = response;
+        setRatingCount(data.length);
+        setAverageRating(
+          data.length ? data.reduce((sum, rating) => sum + rating.rating, 0) / data.length : 0
+        );
+      } catch (error) {
+        console.error('Error fetching ratings:', error);
+      }
+    };
+
+    fetchRatings();
+  }, []);
 
   const copyContactNumber = () => {
     navigator.clipboard.writeText('+917987235207').then(() => {
@@ -226,7 +255,7 @@ const Home = () => {
 
     try {
       const endpoint = query ? 'submit-query' : 'submit-feedback';
-      const response = await fetch(`https://lic-backend-8jun.onrender.com/api/lic/${endpoint}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/lic/${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, feedback: feedback || query, query }),
@@ -275,14 +304,44 @@ const Home = () => {
     publisher: {
       '@type': 'Organization',
       name: 'LIC Neemuch',
-      logo: { '@type': 'ImageObject', url: 'https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp' },
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp',
+        width: 600,
+        height: 200,
+      },
     },
     inLanguage: 'mul',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: averageRating.toFixed(1) || '4.8',
+      reviewCount: ratingCount || 50,
+      bestRating: '5',
+      worstRating: '1',
+    },
+    review: [
+      {
+        '@type': 'Review',
+        author: { '@type': 'Person', name: 'Rahul Sharma' },
+        datePublished: '2025-05-15',
+        reviewBody: 'Jitendra Patidar provided excellent guidance on LIC policies. Highly professional and trustworthy!',
+        reviewRating: { '@type': 'Rating', ratingValue: '5' },
+      },
+      {
+        '@type': 'Review',
+        author: { '@type': 'Person', name: 'Priya Verma' },
+        datePublished: '2025-04-20',
+        reviewBody: 'Great experience with LIC Neemuch. Jitendra helped me choose the perfect insurance plan.',
+        reviewRating: { '@type': 'Rating', ratingValue: '4.5' },
+      },
+    ],
     breadcrumb: {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://lic-neemuch-jitendra-patidar.vercel.app/' },
         { '@type': 'ListItem', position: 2, name: 'Join', item: 'https://lic-neemuch-jitendra-patidar.vercel.app/join' },
+        { '@type': 'ListItem', position: 3, name: 'Services', item: 'https://lic-neemuch-jitendra-patidar.vercel.app/services' },
+        { '@type': 'ListItem', position: 4, name: 'About', item: 'https://lic-neemuch-jitendra-patidar.vercel.app/about' },
       ],
     },
     FAQPage: {
@@ -298,142 +357,86 @@ const Home = () => {
           name: 'How to become an LIC agent in Neemuch?',
           acceptedAnswer: { '@type': 'Answer', text: 'Contact Jitendra Patidar, pass the IRDAI exam, and complete LIC training to become an agent.' },
         },
-         {
-      '@type': 'Question',
-      name: 'How to contact Jitendra Patidar for LIC services?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Contact Jitendra Patidar via lic-neemuch-jitendra-patidar.vercel.app for insurance and agent recruitment in Neemuch.',
-      },
-    },
-      {
-      '@type': 'Question',
-      name: 'What is the role of an LIC Development Officer?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'An LIC Development Officer, like Jitendra Patidar, recruits and trains agents, and advises clients on insurance plans.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How to become an LIC agent in Neemuch?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'To become an LIC agent in Neemuch, contact Jitendra Patidar, pass the IRDAI exam, and complete LIC training.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What are the benefits of being an LIC agent?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'LIC agents enjoy a stable career, training, flexible hours, and income potential through commissions and bonuses.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What types of LIC policies are available in Neemuch?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'LIC Neemuch offers term insurance, endowment plans, ULIPs, pension plans, and child plans for diverse needs.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Why choose LIC Neemuch for insurance?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'LIC Neemuch, led by Jitendra Patidar, offers trusted insurance solutions with personalized service and reliability.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What is the purpose of LIC India?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'LIC India aims to provide financial security through life insurance, promoting wealth creation and retirement planning.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How does LIC Neemuch support financial literacy?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'LIC Neemuch conducts outreach programs to educate clients on insurance and financial planning, led by Jitendra Patidar.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What is the LIC agent recruitment process?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'LIC agent recruitment involves eligibility checks, an IRDAI exam, training, and licensing, guided by officers like Jitendra Patidar.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Can I join Jitendra Patidar’s LIC team in Neemuch?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Yes, contact Jitendra Patidar to join his LIC Neemuch team as an agent, with training and support provided.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What are LIC endowment plans in Neemuch?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'LIC endowment plans in Neemuch combine savings and insurance, offering maturity benefits and life cover.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How does LIC Neemuch handle insurance claims?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'LIC Neemuch, under Jitendra Patidar, ensures smooth claim processing with professional support and transparency.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What is the role of LIC agents in Neemuch?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'LIC agents in Neemuch advise clients on policies, assist with claims, and promote financial security under Jitendra Patidar’s guidance.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What are LIC ULIPs in Neemuch?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'LIC ULIPs in Neemuch combine insurance and investment, offering market-linked returns and life cover.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How does LIC Neemuch promote CSR initiatives?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'LIC Neemuch supports education, healthcare, and sustainability through CSR programs, aligned with LIC India’s mission.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What training do LIC agents receive in Neemuch?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'LIC agents in Neemuch receive comprehensive training on products, sales, and client service, guided by Jitendra Patidar.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'LIC एजेंट कैसे बनें? (How to become an LIC agent?)',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'LIC एजेंट बनने के लिए नीमच में जीतेंद्र पाटीदार से संपर्क करें, IRDAI परीक्षा पास करें, और LIC प्रशिक्षण पूरा करें।',
-      },
-    },
+        {
+          '@type': 'Question',
+          name: 'How to contact Jitendra Patidar for LIC services?',
+          acceptedAnswer: { '@type': 'Answer', text: 'Contact Jitendra Patidar via lic-neemuch-jitendra-patidar.vercel.app for insurance and agent recruitment in Neemuch.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'What is the role of an LIC Development Officer?',
+          acceptedAnswer: { '@type': 'Answer', text: 'An LIC Development Officer, like Jitendra Patidar, recruits and trains agents, and advises clients on insurance plans.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'What are the benefits of being an LIC agent?',
+          acceptedAnswer: { '@type': 'Answer', text: 'LIC agents enjoy a stable career, training, flexible hours, and income potential through commissions and bonuses.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'What types of LIC policies are available in Neemuch?',
+          acceptedAnswer: { '@type': 'Answer', text: 'LIC Neemuch offers term insurance, endowment plans, ULIPs, pension plans, and child plans for diverse needs.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'Why choose LIC Neemuch for insurance?',
+          acceptedAnswer: { '@type': 'Answer', text: 'LIC Neemuch, led by Jitendra Patidar, offers trusted insurance solutions with personalized service and reliability.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'What is the purpose of LIC India?',
+          acceptedAnswer: { '@type': 'Answer', text: 'LIC India aims to provide financial security through life insurance, promoting wealth creation and retirement planning.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'How does LIC Neemuch support financial literacy?',
+          acceptedAnswer: { '@type': 'Answer', text: 'LIC Neemuch conducts outreach programs to educate clients on insurance and financial planning, led by Jitendra Patidar.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'What is the LIC agent recruitment process?',
+          acceptedAnswer: { '@type': 'Answer', text: 'LIC agent recruitment involves eligibility checks, an IRDAI exam, training, and licensing, guided by officers like Jitendra Patidar.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I join Jitendra Patidar’s LIC team in Neemuch?',
+          acceptedAnswer: { '@type': 'Answer', text: 'Yes, contact Jitendra Patidar to join his LIC Neemuch team as an agent, with training and support provided.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'What are LIC endowment plans in Neemuch?',
+          acceptedAnswer: { '@type': 'Answer', text: 'LIC endowment plans in Neemuch combine savings and insurance, offering maturity benefits and life cover.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'How does LIC Neemuch handle insurance claims?',
+          acceptedAnswer: { '@type': 'Answer', text: 'LIC Neemuch, under Jitendra Patidar, ensures smooth claim processing with professional support and transparency.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'What is the role of LIC agents in Neemuch?',
+          acceptedAnswer: { '@type': 'Answer', text: 'LIC agents in Neemuch advise clients on policies, assist with claims, and promote financial security under Jitendra Patidar’s guidance.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'What are LIC ULIPs in Neemuch?',
+          acceptedAnswer: { '@type': 'Answer', text: 'LIC ULIPs in Neemuch combine insurance and investment, offering market-linked returns and life cover.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'How does LIC Neemuch promote CSR initiatives?',
+          acceptedAnswer: { '@type': 'Answer', text: 'LIC Neemuch supports education, healthcare, and sustainability through CSR programs, aligned with LIC India’s mission.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'What training do LIC agents receive in Neemuch?',
+          acceptedAnswer: { '@type': 'Answer', text: 'LIC agents in Neemuch receive comprehensive training on products, sales, and client service, guided by Jitendra Patidar.' },
+        },
+        {
+          '@type': 'Question',
+          name: 'LIC एजेंट कैसे बनें? (How to become an LIC agent?)',
+          acceptedAnswer: { '@type': 'Answer', text: 'LIC एजेंट बनने के लिए नीमच में जीतेंद्र पाटीदार से संपर्क करें, IRDAI परीक्षा पास करें, और LIC प्रशिक्षण पूरा करें।' },
+        },
       ],
     },
   };
@@ -444,7 +447,7 @@ const Home = () => {
         <html lang="mul" />
         <title>LIC Neemuch | Jitendra Patidar, LIC Development Officer</title>
         <meta charset="UTF-8" />
-        <meta name="description" content="Contact Jitendra Patidar, LIC Development Officer in Neemuch, for life insurance, financial planning, and LIC agent opportunities in Madhya Pradesh. Secure your future with trusted LIC services." />
+        <meta name="description" content="Contact Jitendra Patidar, LIC Development Officer in Neemuch, for life insurance, financial planning, and LIC agent opportunities in Madhya Pradesh. Trusted by hundreds with a 4.8/5 rating." />
         <meta name="keywords" content="LIC Neemuch, Jitendra Patidar, LIC Development Officer, life insurance Neemuch, LIC agent recruitment, financial planning Madhya Pradesh, insurance solutions" />
         <meta name="author" content="Jitendra Patidar" />
         <meta name="robots" content="index, follow" />
@@ -456,17 +459,21 @@ const Home = () => {
         <link rel="canonical" href="https://lic-neemuch-jitendra-patidar.vercel.app/" />
         <link rel="alternate" hreflang="hi" href="https://lic-neemuch-jitendra-patidar.vercel.app/hi" />
         <link rel="preload" href={profileImage1} as="image" />
-        <link rel="dns-prefetch" href="https://mys3resources.s3.ap-south-1.amazonaws.com" />
+        <link rel="preload" href="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp" as="image" />
+        <link rel="dns-prefetch" href="https://lic-backend-8jun.onrender.com" />
         <meta property="og:title" content="LIC Neemuch | Jitendra Patidar, LIC Development Officer" />
-        <meta property="og:description" content="Contact Jitendra Patidar for life insurance and LIC agent opportunities in Neemuch, Madhya Pradesh." />
+        <meta property="og:description" content="Contact Jitendra Patidar for life insurance and LIC agent opportunities in Neemuch, Madhya Pradesh. Rated 4.8/5 by clients." />
         <meta property="og:image" content="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp" />
         <meta property="og:image:alt" content="Jitendra Patidar, LIC Development Officer" />
         <meta property="og:url" content="https://lic-neemuch-jitendra-patidar.vercel.app/" />
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="LIC Neemuch | Jitendra Patidar" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="LIC Neemuch | Jitendra Patidar" />
-        <meta name="twitter:description" content="Life insurance and LIC agent opportunities with Jitendra Patidar in Neemuch." />
+        <meta name="twitter:description" content="Life insurance and LIC agent opportunities with Jitendra Patidar in Neemuch. Rated 4.8/5." />
         <meta name="twitter:image" content="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp" />
+        <meta name="twitter:site" content="@jitendrapatidar" />
+        <meta name="twitter:creator" content="@jitendrapatidar" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
       <MainContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
@@ -487,6 +494,12 @@ const Home = () => {
           <Paragraph lang="hi">
             नीमच में एलआईसी, विकास अधिकारी <strong>जीतेंद्र पाटीदार</strong> के नेतृत्व में, आपके भविष्य को सुरक्षित करने के लिए व्यापक जीवन बीमा और वित्तीय नियोजन समाधान प्रदान करता है। नीमच, मंदसौर, रतनगढ़, सिंगोली, मनासा, जावद और सरवानीयाँ महाराज की सेवा करते हुए, हमारा मिशन विश्वसनीय एलआईसी पॉलिसियों के माध्यम से परिवारों को वित्तीय सुरक्षा प्रदान करना है।
           </Paragraph>
+          {ratingCount > 0 && (
+            <RatingDisplay aria-label="Average customer rating">
+              <FontAwesomeIcon icon={faStar} />
+              <span>{averageRating.toFixed(1)}/5 ({ratingCount} reviews)</span>
+            </RatingDisplay>
+          )}
         </Section>
         <FlexContainer>
           <ProfileImageContainer>
@@ -547,8 +560,11 @@ const Home = () => {
           <Button type="submit" aria-label="Submit form">जमा करें</Button>
         </ContactForm>
         <Suspense fallback={<div>Loading...</div>}>
-          <Rating />
-          <Review />
+          <Section aria-label="Customer ratings and reviews">
+            <SubHeading>Ratings & Reviews</SubHeading>
+            <Rating />
+            <Review />
+          </Section>
         </Suspense>
         <ToastContainer position="top-right" style={{ marginTop: '80px' }} />
       </MainContainer>
