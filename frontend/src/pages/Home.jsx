@@ -539,7 +539,7 @@ const Home = () => {
         <meta property="og:image:height" content="200" />
         <meta property="og:url" content="https://lic-neemuch-jitendra-patidar.vercel.app/" />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="LIC Neemuch | Jitendra Patidar" />
+        <meta property="og:site_name" content="LIC Neemuch: How Jitendra Patidar Ensures Your Secure Life" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="LIC Neemuch: How Jitendra Patidar Ensures Your Secure Life" />
         <meta
