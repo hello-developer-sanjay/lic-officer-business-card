@@ -226,7 +226,7 @@ const Home = () => {
 
     try {
       const endpoint = query ? 'submit-query' : 'submit-feedback';
-      const response = await fetch(`https://eduxcel-api-30april.onrender.com/api/${endpoint}`, {
+      const response = await fetch(`https://lic-backend-8jun.onrender.com/api/lic/${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, feedback: feedback || query, query }),
