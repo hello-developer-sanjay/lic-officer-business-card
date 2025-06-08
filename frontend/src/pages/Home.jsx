@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 
-const Rating = lazy(() => import('../components/Rating'));
+const Rating = lazy(() => import('../components/Rating')); // Matches StarRating export
 const Review = lazy(() => import('../components/Review'));
 
 const MainContainer = styled(motion.main)`
@@ -197,28 +197,51 @@ const RatingDisplay = styled.div`
 `;
 
 const Home = () => {
-  const [isToastVisible, setIsToastVisible] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
-  const [averageRating, setAverageRating] = useState(0);
-  const [ratingCount, setRatingCount] = useState(0);
+  const [averageRating, setAverageRating] = useState(4.8); // Fallback
+  const [ratingCount, setRatingCount] = useState(50); // Fallback
+  const [recentReviews, setRecentReviews] = useState([]); // Dynamic reviews
   const footerRef = useRef(null);
+  const API_URL = process.env.REACT_APP_API_URL || 'https://lic-backend-8jun.onrender.com';
 
   useEffect(() => {
-    const fetchRatings = async () => {
+    const fetchRatingsAndReviews = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/lic/ratings`);
-        const { data } = response;
-        setRatingCount(data.length);
-        setAverageRating(
-          data.length ? data.reduce((sum, rating) => sum + rating.rating, 0) / data.length : 0
-        );
+        // Fetch ratings
+        const ratingsResponse = await axios.get(`${API_URL}/api/lic/ratings`);
+        const ratingsData = ratingsResponse.data || [];
+        if (ratingsData.length) {
+          const validRatings = ratingsData.filter(r => r.rating >= 1 && r.rating <= 5);
+          if (validRatings.length) {
+            setRatingCount(validRatings.length);
+            setAverageRating(
+              validRatings.reduce((sum, r) => sum + r.rating, 0) / validRatings.length
+            );
+          } else {
+            console.warn('No valid ratings (rating >= 1 && <= 5), using fallback');
+          }
+        } else {
+          console.warn('No ratings found, using fallback');
+        }
+
+        // Fetch reviews
+        const reviewsResponse = await axios.get(`${API_URL}/api/lic/reviews`);
+        const reviewsData = reviewsResponse.data || [];
+        if (reviewsData.length) {
+          // Sort by createdAt descending, take top 2
+          const sortedReviews = reviewsData
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .slice(0, 2);
+          setRecentReviews(sortedReviews);
+        }
       } catch (error) {
-        console.error('Error fetching ratings:', error);
+        console.error('Error fetching ratings/reviews:', error);
+        toast.error('Failed to load ratings/reviews.');
       }
     };
 
-    fetchRatings();
-  }, []);
+    fetchRatingsAndReviews();
+  }, [API_URL]);
 
   const copyContactNumber = () => {
     navigator.clipboard.writeText('+917987235207').then(() => {
@@ -255,7 +278,7 @@ const Home = () => {
 
     try {
       const endpoint = query ? 'submit-query' : 'submit-feedback';
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/lic/${endpoint}`, {
+      const response = await fetch(`${API_URL}/api/lic/${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, feedback: feedback || query, query }),
@@ -263,10 +286,12 @@ const Home = () => {
 
       if (response.ok) {
         toast.success(query ? 'प्रश्न भेजा गया!' : 'प्रतिक्रिया जमा की गई!');
+        e.target.reset();
       } else {
         toast.error('जमा करने में त्रुटि। कृपया पुनः प्रयास करें।');
       }
     } catch (error) {
+      console.error('Error submitting form:', error);
       toast.error('जमा करने में त्रुटि। कृपया पुनः प्रयास करें।');
     }
   };
@@ -295,46 +320,61 @@ const Home = () => {
 
   const structuredData = {
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: 'LIC Neemuch | Jitendra Patidar, LIC Development Officer',
-    description: 'Contact Jitendra Patidar, LIC Development Officer in Neemuch, for life insurance solutions, financial planning, and LIC agent opportunities in Madhya Pradesh.',
+    '@type': 'LocalBusiness',
+    name: 'LIC Neemuch',
+    description: 'LIC Neemuch, led by Jitendra Patidar, offers life insurance, financial planning, and LIC agent opportunities in Neemuch, Madhya Pradesh.',
     url: 'https://lic-neemuch-jitendra-patidar.vercel.app/',
-    mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://lic-neemuch-jitendra-patidar.vercel.app/' },
-    author: { '@type': 'Person', name: 'Jitendra Patidar' },
-    publisher: {
-      '@type': 'Organization',
-      name: 'LIC Neemuch',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp',
-        width: 600,
-        height: 200,
-      },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Vikas Nagar, Scheme No. 14-3, Neemuch Chawni',
+      addressLocality: 'Neemuch',
+      addressRegion: 'Madhya Pradesh',
+      postalCode: '458441',
+      addressCountry: 'IN',
     },
-    inLanguage: 'mul',
+    telephone: '+917987235207',
+    image: 'https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp',
+      width: 600,
+      height: 200,
+    },
+    sameAs: ['https://www.instagram.com/jay7268patidar'],
+    inLanguage: ['en', 'hi'],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+917987235207',
+      contactType: 'Customer Service',
+      areaServed: 'IN',
+      availableLanguage: ['English', 'Hindi'],
+    },
     aggregateRating: {
       '@type': 'AggregateRating',
-      ratingValue: averageRating.toFixed(1) || '4.8',
-      reviewCount: ratingCount || 50,
+      itemReviewed: {
+        '@type': 'LocalBusiness',
+        name: 'LIC Neemuch',
+        sameAs: 'https://lic-neemuch-jitendra-patidar.vercel.app/',
+      },
+      ratingValue: averageRating.toFixed(1),
+      reviewCount: ratingCount,
       bestRating: '5',
       worstRating: '1',
     },
-    review: [
-      {
-        '@type': 'Review',
-        author: { '@type': 'Person', name: 'Rahul Sharma' },
-        datePublished: '2025-05-15',
-        reviewBody: 'Jitendra Patidar provided excellent guidance on LIC policies. Highly professional and trustworthy!',
-        reviewRating: { '@type': 'Rating', ratingValue: '5' },
+    review: recentReviews.map(review => ({
+      '@type': 'Review',
+      itemReviewed: {
+        '@type': 'LocalBusiness',
+        name: 'LIC Neemuch',
+        sameAs: 'https://lic-neemuch-jitendra-patidar.vercel.app/',
       },
-      {
-        '@type': 'Review',
-        author: { '@type': 'Person', name: 'Priya Verma' },
-        datePublished: '2025-04-20',
-        reviewBody: 'Great experience with LIC Neemuch. Jitendra helped me choose the perfect insurance plan.',
-        reviewRating: { '@type': 'Rating', ratingValue: '4.5' },
+      author: {
+        '@type': 'Person',
+        name: review.username,
       },
-    ],
+      datePublished: new Date(review.createdAt).toISOString().split('T')[0],
+      reviewBody: review.comment,
+    })),
     breadcrumb: {
       '@type': 'BreadcrumbList',
       itemListElement: [
@@ -360,7 +400,7 @@ const Home = () => {
         {
           '@type': 'Question',
           name: 'How to contact Jitendra Patidar for LIC services?',
-          acceptedAnswer: { '@type': 'Answer', text: 'Contact Jitendra Patidar via lic-neemuch-jitendra-patidar.vercel.app for insurance and agent recruitment in Neemuch.' },
+          acceptedAnswer: { '@type': 'Answer', text: 'Contact Jitendra Patidar via lic-neemuch-jitendra-patidar.vercel.app or call +917987235207.' },
         },
         {
           '@type': 'Question',
@@ -447,8 +487,14 @@ const Home = () => {
         <html lang="mul" />
         <title>LIC Neemuch | Jitendra Patidar, LIC Development Officer</title>
         <meta charset="UTF-8" />
-        <meta name="description" content="Contact Jitendra Patidar, LIC Development Officer in Neemuch, for life insurance, financial planning, and LIC agent opportunities in Madhya Pradesh. Trusted by hundreds with a 4.8/5 rating." />
-        <meta name="keywords" content="LIC Neemuch, Jitendra Patidar, LIC Development Officer, life insurance Neemuch, LIC agent recruitment, financial planning Madhya Pradesh, insurance solutions" />
+        <meta
+          name="description"
+          content={`Contact Jitendra Patidar, LIC Development Officer in Neemuch, for life insurance and agent opportunities in Madhya Pradesh. Rated ${averageRating.toFixed(1)}/5 by ${ratingCount} clients.`}
+        />
+        <meta
+          name="keywords"
+          content="LIC Neemuch, Jitendra Patidar, LIC Development Officer, life insurance Neemuch, LIC agent recruitment, financial planning Madhya Pradesh, insurance solutions"
+        />
         <meta name="author" content="Jitendra Patidar" />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -459,19 +505,37 @@ const Home = () => {
         <link rel="canonical" href="https://lic-neemuch-jitendra-patidar.vercel.app/" />
         <link rel="alternate" hreflang="hi" href="https://lic-neemuch-jitendra-patidar.vercel.app/hi" />
         <link rel="preload" href={profileImage1} as="image" />
-        <link rel="preload" href="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp" as="image" />
-        <link rel="dns-prefetch" href="https://lic-backend-8jun.onrender.com" />
+        <link
+          rel="preload"
+          href="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp"
+          as="image"
+        />
+        <link rel="dns-prefetch" href={API_URL} />
         <meta property="og:title" content="LIC Neemuch | Jitendra Patidar, LIC Development Officer" />
-        <meta property="og:description" content="Contact Jitendra Patidar for life insurance and LIC agent opportunities in Neemuch, Madhya Pradesh. Rated 4.8/5 by clients." />
-        <meta property="og:image" content="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp" />
-        <meta property="og:image:alt" content="Jitendra Patidar, LIC Development Officer" />
+        <meta
+          property="og:description"
+          content={`Contact Jitendra Patidar for life insurance and LIC agent opportunities in Neemuch, Madhya Pradesh. Rated ${averageRating.toFixed(1)}/5 by ${ratingCount} clients.`}
+        />
+        <meta
+          property="og:image"
+          content="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp"
+        />
+        <meta property="og:image:alt" content="LIC Neemuch Logo" />
+        <meta property="og:image:width" content="600" />
+        <meta property="og:image:height" content="200" />
         <meta property="og:url" content="https://lic-neemuch-jitendra-patidar.vercel.app/" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="LIC Neemuch | Jitendra Patidar" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="LIC Neemuch | Jitendra Patidar" />
-        <meta name="twitter:description" content="Life insurance and LIC agent opportunities with Jitendra Patidar in Neemuch. Rated 4.8/5." />
-        <meta name="twitter:image" content="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp" />
+        <meta
+          name="twitter:description"
+          content={`Life insurance and LIC agent opportunities with Jitendra Patidar in Neemuch. Rated ${averageRating.toFixed(1)}/5 by ${ratingCount} clients.`}
+        />
+        <meta
+          name="twitter:image"
+          content="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp"
+        />
         <meta name="twitter:site" content="@jitendrapatidar" />
         <meta name="twitter:creator" content="@jitendrapatidar" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
@@ -479,25 +543,44 @@ const Home = () => {
       <MainContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <Header>
           <NavContainer aria-label="Main navigation">
-            <NavLink to="/" aria-label="Home"><FontAwesomeIcon icon={faHome} /> Home</NavLink>
-            <NavLink to="/join" aria-label="Join as Agent"><FontAwesomeIcon icon={faUserPlus} /> Join as Agent</NavLink>
-            <NavLink to="/services" aria-label="Services"><FontAwesomeIcon icon={faBriefcase} /> Services</NavLink>
-            <NavLink to="/about" aria-label="About"><FontAwesomeIcon icon={faInfoCircle} /> About</NavLink>
+            <NavLink to="/" aria-label="Home">
+              <FontAwesomeIcon icon={faHome} /> Home
+            </NavLink>
+            <NavLink to="/join" aria-label="Join as Agent">
+              <FontAwesomeIcon icon={faUserPlus} /> Join as Agent
+            </NavLink>
+            <NavLink to="/services" aria-label="Services">
+              <FontAwesomeIcon icon={faBriefcase} /> Services
+            </NavLink>
+            <NavLink to="/about" aria-label="About">
+              <FontAwesomeIcon icon={faInfoCircle} /> About
+            </NavLink>
           </NavContainer>
         </Header>
         <Title>Jitendra Patidar - LIC Development Officer, Neemuch</Title>
         <Section>
           <SubHeading>Welcome to LIC Neemuch</SubHeading>
           <Paragraph lang="en">
-            At LIC Neemuch, led by Development Officer <strong>Jitendra Patidar</strong>, we provide comprehensive life insurance and financial planning solutions to secure your future. Serving Neemuch, Mandsaur, Ratangarh, Singoli, Manasa, Jawad, and Sarwaniya Maharaj, our mission is to empower families with financial security through trusted LIC policies. Whether you're seeking term insurance, endowment plans, ULIPs, or pension plans, we offer personalized services tailored to your needs.
+            At LIC Neemuch, led by Development Officer <strong>Jitendra Patidar</strong>, we provide
+            comprehensive life insurance and financial planning solutions to secure your future.
+            Serving Neemuch, Mandsaur, Ratangarh, Singoli, Manasa, Jawad, and Sarwaniya Maharaj, our
+            mission is to empower families with financial security through trusted LIC policies.
+            Whether you're seeking term insurance, endowment plans, ULIPs, or pension plans, we offer
+            personalized services tailored to your needs.
           </Paragraph>
           <Paragraph lang="hi">
-            नीमच में एलआईसी, विकास अधिकारी <strong>जीतेंद्र पाटीदार</strong> के नेतृत्व में, आपके भविष्य को सुरक्षित करने के लिए व्यापक जीवन बीमा और वित्तीय नियोजन समाधान प्रदान करता है। नीमच, मंदसौर, रतनगढ़, सिंगोली, मनासा, जावद और सरवानीयाँ महाराज की सेवा करते हुए, हमारा मिशन विश्वसनीय एलआईसी पॉलिसियों के माध्यम से परिवारों को वित्तीय सुरक्षा प्रदान करना है।
+            नीमच में एलआईसी, विकास अधिकारी <strong>जीतेंद्र पाटीदार</strong> के नेतृत्व में, आपके
+            भविष्य को सुरक्षित करने के लिए व्यापक जीवन बीमा और वित्तीय नियोजन समाधान प्रदान करता
+            है। नीमच, मंदसौर, रतनगढ़, सिंगोली, मनासा, जावद और सरवानीयाँ महाराज की सेवा करते हुए,
+            हमारा मिशन विश्वसनीय एलआईसी पॉलिसियों के माध्यम से परिवारों को वित्तीय सुरक्षा प्रदान
+            करना है।
           </Paragraph>
-          {ratingCount > 0 && (
+          {ratingCount > 0 && averageRating >= 1 && (
             <RatingDisplay aria-label="Average customer rating">
               <FontAwesomeIcon icon={faStar} />
-              <span>{averageRating.toFixed(1)}/5 ({ratingCount} reviews)</span>
+              <span>
+                {averageRating.toFixed(1)}/5 ({ratingCount} reviews)
+              </span>
             </RatingDisplay>
           )}
         </Section>
@@ -519,29 +602,53 @@ const Home = () => {
             <SubHeading>Contact Jitendra Patidar</SubHeading>
             <Paragraph>
               📞 <strong>Contact Number:</strong>{' '}
-              <Link href="tel:+917987235207" id="contactNumber">+91 7987235207</Link>{' '}
-              <Button onClick={copyContactNumber} aria-label="Copy contact number">Copy Number</Button>
+              <Link href="tel:+917987235207" id="contactNumber">
+                +91 7987235207
+              </Link>{' '}
+              <Button onClick={copyContactNumber} aria-label="Copy contact number">
+                Copy Number
+              </Button>
             </Paragraph>
             <Paragraph>
               <FaInstagram /> <strong>Instagram:</strong>{' '}
-              <Link href="https://www.instagram.com/jay7268patidar" id="instaID" target="_blank">jay7268patidar</Link>{' '}
-              <Button onClick={copyInstaID} aria-label="Copy Instagram ID">Copy ID</Button>
+              <Link
+                href="https://www.instagram.com/jay7268patidar"
+                id="instaID"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                jay7268patidar
+              </Link>{' '}
+              <Button onClick={copyInstaID} aria-label="Copy Instagram ID">
+                Copy ID
+              </Button>
             </Paragraph>
             <Paragraph>
-              <strong>Office Address:</strong> Vikas Nagar, Scheme No. 14-3, Neemuch Chawni, Neemuch, Madhya Pradesh 458441
+              <strong>Office Address:</strong> Vikas Nagar, Scheme No. 14-3, Neemuch Chawni,
+              Neemuch, Madhya Pradesh 458441
             </Paragraph>
             <Paragraph>
-              Ready to explore LIC services? Visit the <Link href="https://licindia.in/hi/home" target="_blank">LIC India website</Link> or <NavLink to="/services">our services page</NavLink> for more details.
+              Ready to explore LIC services? Visit the{' '}
+              <Link href="https://licindia.in/hi/home" target="_blank" rel="noopener noreferrer">
+                LIC India website
+              </Link>{' '}
+              or <NavLink to="/services">our services page</NavLink> for more details.
             </Paragraph>
           </Section>
         </FlexContainer>
         <Section>
           <SubHeading>Become an LIC Agent</SubHeading>
           <Paragraph lang="en">
-            Join Jitendra Patidar’s team at LIC Neemuch as an LIC agent. Enjoy a rewarding career with flexible hours, comprehensive training, and attractive commissions. To get started, pass the IRDAI exam and complete LIC’s training program. <NavLink to="/join">Learn more about agent opportunities</NavLink>.
+            Join Jitendra Patidar’s team at LIC Neemuch as an LIC agent. Enjoy a rewarding career
+            with flexible hours, comprehensive training, and attractive commissions. To get started,
+            pass the IRDAI exam and complete LIC’s training program.{' '}
+            <NavLink to="/join">Learn more about agent opportunities</NavLink>.
           </Paragraph>
           <Paragraph lang="hi">
-            नीमच में जीतेंद्र पाटीदार की टीम में एलआईसी एजेंट के रूप में शामिल हों। लचीले घंटों, व्यापक प्रशिक्षण और आकर्षक कमीशन के साथ एक पुरस्कृत करियर का आनंद लें। शुरू करने के लिए, IRDAI परीक्षा पास करें और LIC का प्रशिक्षण कार्यक्रम पूरा करें। <NavLink to="/join">एजेंट अवसरों के बारे में और जानें</NavLink>।
+            नीमच में जीतेंद्र पाटीदार की टीम में एलआईसी एजेंट के रूप में शामिल हों। लचीले घंटों,
+            व्यापक प्रशिक्षण और आकर्षक कमीशन के साथ एक पुरस्कृत करियर का आनंद लें। शुरू करने के
+            लिए, IRDAI परीक्षा पास करें और LIC का प्रशिक्षण कार्यक्रम पूरा करें।{' '}
+            <NavLink to="/join">एजेंट अवसरों के बारे में और जानें</NavLink>।
           </Paragraph>
         </Section>
         <img
@@ -552,12 +659,19 @@ const Home = () => {
           loading="lazy"
           style={{ margin: '1rem', borderRadius: '10px', boxShadow: '0 0 10px rgba(255, 255, 255, 0.3)' }}
         />
-        <ContactForm onSubmit={handleFormSubmit} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+        <ContactForm
+          onSubmit={handleFormSubmit}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <Input type="text" name="name" placeholder="आपका नाम" required aria-label="Name" />
           <Input type="email" name="email" placeholder="आपका ईमेल" aria-label="Email" />
           <TextArea name="message" rows="4" placeholder="आपकी प्रतिक्रिया..." aria-label="Feedback" />
           <TextArea name="query" rows="4" placeholder="आपका प्रश्न..." aria-label="Query" />
-          <Button type="submit" aria-label="Submit form">जमा करें</Button>
+          <Button type="submit" aria-label="Submit form">
+            जमा करें
+          </Button>
         </ContactForm>
         <Suspense fallback={<div>Loading...</div>}>
           <Section aria-label="Customer ratings and reviews">
@@ -570,10 +684,15 @@ const Home = () => {
       </MainContainer>
       <Footer ref={footerRef}>
         <Paragraph>
-          Discover <Link href="https://zedemy.vercel.app" target="_blank">Zedemy</Link> by Sanjay Patidar
+          Discover{' '}
+          <Link href="https://zedemy.vercel.app" target="_blank" rel="noopener noreferrer">
+            Zedemy
+          </Link>{' '}
+          by Sanjay Patidar
         </Paragraph>
         <Paragraph>
-          © <strong>EduXcel</strong> by Sanjay Patidar | {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+          © <strong>EduXcel</strong> by Sanjay Patidar |{' '}
+          {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
         </Paragraph>
       </Footer>
     </>
