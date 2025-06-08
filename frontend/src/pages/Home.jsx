@@ -503,7 +503,7 @@ const Home = () => {
         <meta charset="UTF-8" />
         <meta
           name="description"
-          content="Jitendra Patidar, LIC Development Officer in Neemuch, ensures your secure life with trusted life insurance, financial planning, and LIC agent opportunities in Madhya Pradesh. Rated 4.8/5 by 50 clients."
+          content="Jitendra Patidar, LIC Development Officer in Neemuch, offers trusted life insurance, financial planning, and LIC agent opportunities in Madhya Pradesh. Rated 4.9/5 by 60 clients."
         />
         <meta
           name="keywords"
@@ -528,7 +528,7 @@ const Home = () => {
         <meta property="og:title" content="LIC Neemuch: How Jitendra Patidar Ensures Your Secure Life" />
         <meta
           property="og:description"
-          content="Jitendra Patidar ensures your secure life with life insurance and LIC agent opportunities in Neemuch, Madhya Pradesh. Rated 4.8/5 by 50 clients."
+          content="Jitendra Patidar, LIC Development Officer in Neemuch, offers trusted life insurance, financial planning, and LIC agent opportunities in Madhya Pradesh. Rated 4.9/5 by 60 clients."
         />
         <meta
           property="og:image"
