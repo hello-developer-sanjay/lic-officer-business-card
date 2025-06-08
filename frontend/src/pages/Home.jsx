@@ -333,10 +333,10 @@ const Home = () => {
       addressCountry: 'IN',
     },
     telephone: '+917987235207',
-    image: 'https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp',
+    image: 'https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/titleImage_LICBlo.jpeg',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp',
+      url: 'https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/titleImage_LICBlo.jpeg',
       width: 600,
       height: 200,
     },
@@ -518,7 +518,7 @@ const Home = () => {
         />
         <meta
           property="og:image"
-          content="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp"
+          content="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/titleImage_LICBlo.jpeg"
         />
         <meta property="og:image:alt" content="LIC Neemuch Logo" />
         <meta property="og:image:width" content="600" />
@@ -534,7 +534,7 @@ const Home = () => {
         />
         <meta
           name="twitter:image"
-          content="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/lic_neemuch_header_11zon.webp"
+          content="https://mys3resources.s3.ap-south-1.amazonaws.com/LIC/titleImage_LICBlo.jpeg"
         />
         <meta name="twitter:site" content="@jitendrapatidar" />
         <meta name="twitter:creator" content="@jitendrapatidar" />
