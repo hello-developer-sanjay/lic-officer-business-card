@@ -9,7 +9,7 @@
       "destination": "https://lic-backend-8jun.onrender.com/api/:path*"
     },
     {
-      "source": "/:path*",
+      "source": "/:path(.*)",
       "destination": "/index.html"
     }
   ],
@@ -24,6 +24,14 @@
         {
           "key": "X-Vercel-Cache",
           "value": "MISS"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        },
+        {
+          "key": "Expires",
+          "value": "0"
         }
       ]
     }
