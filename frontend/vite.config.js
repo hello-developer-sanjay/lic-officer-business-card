@@ -6,17 +6,17 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    rollupOptions: {
-      output: {
-        entryFileNames: 'main.js',
-        chunkFileNames: 'assets/[name].js',
-        assetFileNames: 'assets/[name].[ext]',
-      },
-    },
+    sourcemap: true,
+    manifest: true,
   },
   server: {
     proxy: {
       '/api': {
+        target: 'https://lic-backend-8jun.onrender.com',
+        changeOrigin: true,
+        rewrite: (path) => path,
+      },
+      '/': {
         target: 'https://lic-backend-8jun.onrender.com',
         changeOrigin: true,
         rewrite: (path) => path,
