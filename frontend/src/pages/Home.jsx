@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { RingLoader } from 'react-spinners';
 
 const Layout = styled.div`
   display: flex;
@@ -15,97 +14,8 @@ const HomeContent = styled.div`
   padding: 1rem;
 `;
 
-const LoadingContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(180deg, #050816, #010204);
-`;
-
-const LoadingText = styled.div`
-  margin-top: 1rem;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  color: #e0e0e0;
-  font-weight: normal;
-  animation: pulse 500ms ease-in-out infinite;
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
-  }
-`;
-
-const ErrorContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(180deg, #050816, #010204);
-  color: #e0e0e0;
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  text-align: center;
-`;
-
 const Home = () => {
-  const [ssrHtml, setSsrHtml] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // Check if SSR HTML is already present (like Zedemy's PostPage.jsx)
-    if (document.getElementById('root')?.innerHTML) {
-      setSsrHtml(document.documentElement.outerHTML);
-      setLoading(false);
-    } else {
-      // Fetch SSR HTML if not present
-      fetch('https://lic-backend-8jun.onrender.com/', {
-        headers: {
-          'Accept': 'text/html',
-        },
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to fetch SSR HTML');
-          }
-          return response.text();
-        })
-        .then(html => {
-          if (!html.includes('<div id="root">')) {
-            throw new Error('SSR HTML content not found');
-          }
-          setSsrHtml(html);
-          setLoading(false);
-        })
-        .catch(error => {
-          console.error('[Home.jsx] Error fetching SSR HTML:', error);
-          setError(error.message);
-          setLoading(false);
-        });
-    }
-  }, []);
-
-  if (loading) {
-    return (
-      <LoadingContainer>
-        <RingLoader color="#ffbb00" size={50} />
-        <LoadingText>Loading...</LoadingText>
-      </LoadingContainer>
-    );
-  }
-
-  if (error) {
-    return (
-      <ErrorContainer>
-        <div>{error}</div>
-        <a href="/" style={{ color: '#ffbb00', marginTop: '1rem' }}>Try Again</a>
-      </ErrorContainer>
-    );
-  }
+  const ssrHtml = document.getElementById('root')?.innerHTML || '<div>SSR content not found.</div>';
 
   return (
     <>
