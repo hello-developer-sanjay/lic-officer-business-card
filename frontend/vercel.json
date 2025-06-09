@@ -12,10 +12,6 @@
   ],
   "rewrites": [
     {
-      "source": "/",
-      "destination": "https://lic-backend-8jun.onrender.com/"
-    },
-    {
       "source": "/api/(.*)",
       "destination": "https://lic-backend-8jun.onrender.com/api/$1"
     },
