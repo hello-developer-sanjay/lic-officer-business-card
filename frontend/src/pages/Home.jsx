@@ -6,6 +6,7 @@ const Layout = styled.div`
   display: flex;
   min-height: 100vh;
 `;
+
 const HomeContent = styled.div`
   flex: 1;
   max-width: 1280px;
@@ -25,7 +26,9 @@ const Home = () => {
         <link rel="canonical" href={pageUrl} />
       </Helmet>
       <Layout>
-        <HomeContent />
+        <HomeContent>
+          <div id="root" />
+        </HomeContent>
       </Layout>
     </>
   );
