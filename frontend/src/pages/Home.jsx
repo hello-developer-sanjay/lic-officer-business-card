@@ -52,7 +52,7 @@ const Home = () => {
   useEffect(() => {
     const fetchSSR = async () => {
       try {
-        // Check if SSR HTML is already present (mimicking Zedemy's PostPage.jsx)
+        // Check if SSR HTML is already present
         const rootElement = document.getElementById('root');
         if (rootElement?.innerHTML) {
           setSsrHtml(rootElement.innerHTML);
@@ -60,7 +60,7 @@ const Home = () => {
           return;
         }
 
-        // Fetch SSR HTML directly from the backend
+        // Fetch SSR HTML from backend
         const response = await fetch('https://lic-backend-8jun.onrender.com/', {
           method: 'GET',
           headers: {
@@ -84,7 +84,7 @@ const Home = () => {
         setSsrHtml(rootContent);
         setLoading(false);
       } catch (err) {
-        console.error('[Home.jsx] Error fetching SSR HTML:', err);
+        console.error('Error fetching SSR HTML:', err);
         setError(err.message);
         setLoading(false);
       }
@@ -115,10 +115,7 @@ const Home = () => {
     <>
       <Helmet>
         <title>LIC Neemuch: How Jitendra Patidar Ensures Your Secure Life</title>
-        <meta
-          name="description"
-          content="Jitendra Patidar, LIC Development Officer in Neemuch, offers trusted life insurance, financial planning, and LIC agent opportunities in Madhya Pradesh."
-        />
+        <meta name="description" content="Jitendra Patidar, LIC Development Officer in Neemuch, offers trusted life insurance and financial planning." />
       </Helmet>
       <Layout>
         <HomeContent>
