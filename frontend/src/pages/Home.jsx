@@ -9,9 +9,14 @@ const Layout = styled.div`
 
 const HomeContent = styled.div`
   flex: 1;
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
+`;
+
+const Fallback = styled.div`
+  color: #ffbb00;
+  text-align: center;
 `;
 
 const Home = () => {
@@ -27,8 +32,9 @@ const Home = () => {
       </Helmet>
       <Layout>
         <HomeContent>
-          {/* Fallback content for debugging */}
-          <div style={{ display: 'none' }}>SSR content should appear here</div>
+          <Fallback>
+            Loading SSR content... If this persists, SSR failed.
+          </Fallback>
         </HomeContent>
       </Layout>
     </>
