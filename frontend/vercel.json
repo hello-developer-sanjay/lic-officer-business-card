@@ -3,27 +3,14 @@
     {
       "source": "/api/:path*",
       "destination": "https://lic-backend-8jun.onrender.com/api/:path*"
-    },
-    {
-      "source": "/:path*",
-      "destination": "/index.html"
     }
   ],
   "headers": [
     {
-      "source": "/:path*",
+      "source": "/api/:path*",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        },
-        {
-          "key": "X-Vercel-Cache",
-          "value": "MISS"
-        }
+        { "key": "Cache-Control", "value": "no-cache" }
       ]
     }
-  ],
-  "cleanUrls": true,
-  "trailingSlash": false
+  ]
 }
