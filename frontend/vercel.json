@@ -7,6 +7,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://lic-backend-8jun.onrender.com/api/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
     }
   ],
   "headers": [
@@ -16,6 +20,10 @@
         {
           "key": "Cache-Control",
           "value": "no-cache, no-store, must-revalidate"
+        },
+        {
+          "key": "X-Vercel-Cache",
+          "value": "MISS"
         }
       ]
     }
