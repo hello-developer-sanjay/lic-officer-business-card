@@ -17,24 +17,24 @@ const HomeContent = styled.div`
 const Fallback = styled.div`
   color: #ffbb00;
   text-align: center;
+  font-family: sans-serif;
+  background: linear-gradient(180deg, #050816, #010204);
+  padding: 40px;
+  font-size: 1.5rem;
 `;
 
 const Home = () => {
-  const pageUrl = 'https://lic-neemuch-jitendra-patidar.vercel.app/';
-  const metaDescription = 'Jitendra Patidar, LIC Development Officer in Neemuch, offers trusted life insurance and financial planning.';
-
+  const pageUrl = 'https://lic-backend-8jun.onrender.com/';
   return (
     <>
       <Helmet>
         <title>LIC Neemuch: How Jitendra Patidar Ensures Your Secure Life</title>
-        <meta name="description" content={metaDescription} />
+        <meta name="description" content="Jitendra Patidar, LIC Development Officer in Neemuch." />
         <link rel="canonical" href={pageUrl} />
       </Helmet>
       <Layout>
         <HomeContent>
-          <Fallback>
-            Loading SSR content... If this persists, SSR failed.
-          </Fallback>
+          <Fallback>Loading content...</Fallback>
         </HomeContent>
       </Layout>
     </>
