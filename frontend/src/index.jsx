@@ -6,8 +6,9 @@ const rootElement = document.getElementById('root');
 
 if (rootElement) {
   try {
-    // Log root content before hydration
+    // Log root content and document details before hydration
     console.log('[index.jsx] Root content before hydration:', rootElement.innerHTML);
+    console.log('[index.jsx] Document head:', document.head.innerHTML.slice(0, 200));
     hydrateRoot(rootElement, <App />);
     console.log('[index.jsx] Hydration successful');
   } catch (error) {
