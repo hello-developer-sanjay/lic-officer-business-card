@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Header from './components/Header';
-
-
+import Reviews from './pages/Reviews';
 import { useLocation } from 'react-router-dom';
+
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
@@ -18,31 +17,18 @@ const ScrollToTop = () => {
 function App() {
   return (
     <Router>
-      <div className='relative z-0 bg-primary'>
-        <div className='bg-hero-pattern bg-cover bg-no-repeat bg-center'>
-          <Header />
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<HomeWithBlogSuggestion />} />
-          </Routes>
-
-          
-         
-        </div>
-        <div className='relative z-0'>
-        </div>
+      <div className="relative z-0">
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/join" element={<div>Join Page (TBD)</div>} />
+          <Route path="/services" element={<div>Services Page (TBD)</div>} />
+          <Route path="/about" element={<div>About Page (TBD)</div>} />
+        </Routes>
       </div>
     </Router>
   );
 }
-
-const HomeWithBlogSuggestion = () => {
-  return (
-    <>
-      <Home />
-
-    </>
-  );
-};
 
 export default App;
