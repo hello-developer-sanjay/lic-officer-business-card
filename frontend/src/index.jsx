@@ -6,6 +6,8 @@ const rootElement = document.getElementById('root');
 
 if (rootElement) {
   try {
+    // Log root content before hydration
+    console.log('[index.jsx] Root content before hydration:', rootElement.innerHTML);
     hydrateRoot(rootElement, <App />);
     console.log('[index.jsx] Hydration successful');
   } catch (error) {
@@ -13,6 +15,7 @@ if (rootElement) {
     // Fallback to client-side rendering
     import('react-dom/client').then(({ createRoot }) => {
       createRoot(rootElement).render(<App />);
+      console.log('[index.jsx] Fallback to client-side rendering');
     });
   }
 } else {
