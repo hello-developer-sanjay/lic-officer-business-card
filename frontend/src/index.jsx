@@ -1,19 +1,12 @@
 import React from 'react';
-import { hydrateRoot, createRoot } from 'react-dom/client';
-import './styles/global.css';
+import { hydrateRoot } from 'react-dom/client';
 import App from './App';
+import './styles/global.css';
 
 const rootElement = document.getElementById('root');
 
-// If the root element already has SSR content (from homePageSSR.js), hydrate it
-if (rootElement.hasChildNodes()) {
+if (rootElement) {
   hydrateRoot(rootElement, <App />);
 } else {
-  // Otherwise, render normally (e.g., on client-side navigation)
-  const root = createRoot(rootElement);
-  root.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
+  console.error('[index.jsx] Root element not found');
 }
