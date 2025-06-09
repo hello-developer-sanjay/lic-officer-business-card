@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { RingLoader } from 'react-spinners';
-
 const Layout = styled.div`
   display: flex;
   min-height: 100vh;
