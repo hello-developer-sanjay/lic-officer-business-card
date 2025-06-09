@@ -26,7 +26,10 @@ const Home = () => {
         <link rel="canonical" href={pageUrl} />
       </Helmet>
       <Layout>
-        <HomeContent />
+        <HomeContent>
+          {/* Fallback content for debugging */}
+          <div style={{ display: 'none' }}>SSR content should appear here</div>
+        </HomeContent>
       </Layout>
     </>
   );
