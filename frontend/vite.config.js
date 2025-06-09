@@ -26,11 +26,6 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/': {
-        target: 'https://lic-backend-8jun.onrender.com',
-        changeOrigin: true,
-        rewrite: (path) => path,
-      },
       '/api': {
         target: 'https://lic-backend-8jun.onrender.com',
         changeOrigin: true,
