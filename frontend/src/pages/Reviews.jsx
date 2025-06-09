@@ -7,7 +7,6 @@ import { Helmet } from 'react-helmet';
 
 const Rating = lazy(() => import('../components/Rating'));
 const Review = lazy(() => import('../components/Review'));
-
 const MainContainer = styled(motion.main)`
   background: linear-gradient(180deg, #050816, #010204);
   color: white;
