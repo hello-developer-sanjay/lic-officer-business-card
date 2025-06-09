@@ -10,5 +10,5 @@
       ]
     }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [{ "source": "https://lic-backend-8jun.onrender.com", "destination": "/index.html" }]
 }
