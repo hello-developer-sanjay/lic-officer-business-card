@@ -2,10 +2,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "https://lic-backend-8jun.onrender.com/",
-      "headers": {
-        "Cache-Control": "no-cache, no-store, must-revalidate"
-      }
+      "destination": "https://lic-backend-8jun.onrender.com/"
     },
     {
       "source": "/api/:path*",
