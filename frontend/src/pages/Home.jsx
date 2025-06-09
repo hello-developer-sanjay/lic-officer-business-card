@@ -60,7 +60,13 @@ const Home = () => {
     // Check if SSR data is available
     if (window.__INITIAL_DATA__) {
       const rootElement = document.getElementById('root');
-      const htmlContent = rootElement.getAttribute('data-html') || '';
+      // Extract the innerHTML of the root element instead of looking for a data-html attribute
+      const htmlContent = rootElement?.innerHTML || '';
+      if (!htmlContent) {
+        setError('SSR HTML content not found in initial render');
+        setLoading(false);
+        return;
+      }
       setSsrHtml(htmlContent);
       setLoading(false);
     } else {
@@ -76,7 +82,7 @@ const Home = () => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
           const rootElement = doc.getElementById('root');
-          const htmlContent = rootElement?.getAttribute('data-html') || '';
+          const htmlContent = rootElement?.innerHTML || '';
           if (!htmlContent) {
             throw new Error('SSR HTML content not found');
           }
