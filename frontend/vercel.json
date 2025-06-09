@@ -9,12 +9,6 @@
       "destination": "/index.html"
     }
   ],
-  "functions": {
-    "/api/ssr": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  },
   "headers": [
     {
       "source": "/",
