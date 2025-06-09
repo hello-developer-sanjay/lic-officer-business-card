@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { RingLoader } from 'react-spinners';
+
 const Layout = styled.div`
   display: flex;
   min-height: 100vh;
@@ -37,9 +38,23 @@ const LoadingText = styled.div`
   }
 `;
 
+const ErrorContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #050816, #010204);
+  color: #e0e0e0;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+`;
+
 const Home = () => {
   const [ssrHtml, setSsrHtml] = useState('');
   const [loading, setLoading] = useState(!window.__INITIAL_DATA__);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Check if SSR data is available
@@ -51,17 +66,26 @@ const Home = () => {
     } else {
       // Fetch SSR HTML dynamically if not available (e.g., on client-side navigation)
       fetch('/')
-        .then(response => response.text())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch SSR HTML');
+          }
+          return response.text();
+        })
         .then(html => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
           const rootElement = doc.getElementById('root');
-          const htmlContent = rootElement.getAttribute('data-html') || '';
+          const htmlContent = rootElement?.getAttribute('data-html') || '';
+          if (!htmlContent) {
+            throw new Error('SSR HTML content not found');
+          }
           setSsrHtml(htmlContent);
           setLoading(false);
         })
         .catch(error => {
           console.error('[Home.jsx] Error fetching SSR HTML:', error);
+          setError(error.message);
           setLoading(false);
         });
     }
@@ -73,6 +97,15 @@ const Home = () => {
         <RingLoader color="#ffbb00" size={50} />
         <LoadingText>Loading...</LoadingText>
       </LoadingContainer>
+    );
+  }
+
+  if (error) {
+    return (
+      <ErrorContainer>
+        <div>{error}</div>
+        <a href="/" style={{ color: '#ffbb00', marginTop: '1rem' }}>Try Again</a>
+      </ErrorContainer>
     );
   }
 
