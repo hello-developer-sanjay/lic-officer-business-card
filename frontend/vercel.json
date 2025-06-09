@@ -7,10 +7,6 @@
     {
       "source": "/api/:path*",
       "destination": "https://lic-backend-8jun.onrender.com/api/:path*"
-    },
-    {
-      "source": "/:path+",
-      "destination": "/index.html"
     }
   ],
   "headers": [
