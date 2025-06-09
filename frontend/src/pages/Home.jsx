@@ -26,9 +26,7 @@ const Home = () => {
         <link rel="canonical" href={pageUrl} />
       </Helmet>
       <Layout>
-        <HomeContent>
-          <div id="root-content"></div>
-        </HomeContent>
+        <HomeContent />
       </Layout>
     </>
   );
