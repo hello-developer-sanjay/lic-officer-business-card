@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
-export default defineConfig({
+export uvedefault defineConfig({
   plugins: [
     react({
       jsxRuntime: 'automatic',
@@ -26,7 +26,7 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/': {
+      '/api': {
         target: 'https://lic-backend-8jun.onrender.com',
         changeOrigin: true,
         rewrite: (path) => path,
