@@ -53,25 +53,21 @@ const ErrorContainer = styled.div`
 
 const Home = () => {
   const [ssrHtml, setSsrHtml] = useState('');
-  const [loading, setLoading] = useState(!window.__INITIAL_DATA__);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Check if SSR data is available
-    if (window.__INITIAL_DATA__) {
-      const rootElement = document.getElementById('root');
-      // Extract the innerHTML of the root element instead of looking for a data-html attribute
-      const htmlContent = rootElement?.innerHTML || '';
-      if (!htmlContent) {
-        setError('SSR HTML content not found in initial render');
-        setLoading(false);
-        return;
-      }
-      setSsrHtml(htmlContent);
+    // Check if SSR HTML is already present (like Zedemy's PostPage.jsx)
+    if (document.getElementById('root')?.innerHTML) {
+      setSsrHtml(document.documentElement.outerHTML);
       setLoading(false);
     } else {
-      // Fetch SSR HTML dynamically if not available (e.g., on client-side navigation)
-      fetch('/')
+      // Fetch SSR HTML if not present
+      fetch('https://lic-backend-8jun.onrender.com/', {
+        headers: {
+          'Accept': 'text/html',
+        },
+      })
         .then(response => {
           if (!response.ok) {
             throw new Error('Failed to fetch SSR HTML');
@@ -79,14 +75,10 @@ const Home = () => {
           return response.text();
         })
         .then(html => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const rootElement = doc.getElementById('root');
-          const htmlContent = rootElement?.innerHTML || '';
-          if (!htmlContent) {
+          if (!html.includes('<div id="root">')) {
             throw new Error('SSR HTML content not found');
           }
-          setSsrHtml(htmlContent);
+          setSsrHtml(html);
           setLoading(false);
         })
         .catch(error => {
