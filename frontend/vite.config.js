@@ -14,4 +14,18 @@ export default defineConfig({
       },
     },
   },
+  server: {
+    proxy: {
+      '/': {
+        target: 'https://lic-backend-8jun.onrender.com',
+        changeOrigin: true,
+        rewrite: (path) => path, // Keep the path as is
+      },
+      '/api': {
+        target: 'https://lic-backend-8jun.onrender.com',
+        changeOrigin: true,
+        rewrite: (path) => path,
+      },
+    },
+  },
 });
