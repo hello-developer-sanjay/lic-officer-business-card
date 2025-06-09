@@ -1,14 +1,29 @@
 {
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://lic-backend-8jun.onrender.com/api/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/:path*",
       "headers": [
         {
-          "key": "Expect-CT",
-          "value": "max-age=0"
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "X-Vercel-Cache",
+          "value": "MISS"
         }
       ]
     }
   ],
-  "rewrites": [{ "source": "https://lic-backend-8jun.onrender.com", "destination": "/index.html" }]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
