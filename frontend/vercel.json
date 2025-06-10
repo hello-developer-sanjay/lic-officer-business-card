@@ -1,36 +1,25 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://lic-backend-8jun.onrender.com/api/$1"
+      "src": "^/$",
+      "dest": "https://lic-backend-8jun.onrender.com/",
+      "methods": ["GET"],
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      }
     },
     {
-      "source": "/",
-      "destination": "https://lic-backend-8jun.onrender.com/"
+      "src": "^/api/(.*)$",
+      "dest": "https://lic-backend-8jun.onrender.com/api/$1",
+      "methods": ["GET", "POST", "OPTIONS"]
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
+      "src": "^/(?!api/).*",
+      "dest": "/index.html",
+      "methods": ["GET"],
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
     }
   ],
   "cleanUrls": true,
