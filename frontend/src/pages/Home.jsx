@@ -24,7 +24,7 @@ const Fallback = styled.div`
 `;
 
 const Home = () => {
-  const pageUrl = 'https://lic-neemuch-jitendra-patidar.vercel.app/';
+  const pageUrl = 'https://lic-backend-8jun.onrender.com/';
   const metaDescription = 'Jitendra Patidar, LIC Development Officer in Neemuch, offers trusted life insurance and financial planning.';
 
   return (
