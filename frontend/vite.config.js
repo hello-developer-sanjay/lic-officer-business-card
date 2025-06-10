@@ -31,6 +31,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path,
       },
+      '/': {
+        target: 'https://lic-backend-8jun.onrender.com',
+        changeOrigin: true,
+        rewrite: (path) => path,
+      },
     },
   },
 });
