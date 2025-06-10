@@ -24,17 +24,21 @@ const Fallback = styled.div`
 `;
 
 const Home = () => {
-  const pageUrl = 'https://lic-backend-8jun.onrender.com/';
+  const pageUrl = 'https://lic-neemuch-jitendra-patidar.vercel.app/';
+  const metaDescription = 'Jitendra Patidar, LIC Development Officer in Neemuch, offers trusted life insurance and financial planning.';
+
   return (
     <>
       <Helmet>
         <title>LIC Neemuch: How Jitendra Patidar Ensures Your Secure Life</title>
-        <meta name="description" content="Jitendra Patidar, LIC Development Officer in Neemuch." />
+        <meta name="description" content={metaDescription} />
         <link rel="canonical" href={pageUrl} />
       </Helmet>
       <Layout>
         <HomeContent>
-          <Fallback>Loading content...</Fallback>
+          <Fallback>
+            Content failed to load. Check console for [index.jsx] logs.
+          </Fallback>
         </HomeContent>
       </Layout>
     </>
