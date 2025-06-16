@@ -1,27 +1,14 @@
 {
-  "routes": [
+  "headers": [
     {
-      "src": "^/$",
-      "dest": "https://lic-backend-8jun.onrender.com/",
-      "methods": ["GET"],
-      "headers": {
-        "Cache-Control": "public, max-age=0, must-revalidate"
-      }
-    },
-    {
-      "src": "^/api/(.*)$",
-      "dest": "https://lic-backend-8jun.onrender.com/api/$1",
-      "methods": ["GET", "POST", "OPTIONS"]
-    },
-    {
-      "src": "^/(?!api/).*",
-      "dest": "/index.html",
-      "methods": ["GET"],
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Expect-CT",
+          "value": "max-age=0"
+        }
+      ]
     }
   ],
-  "cleanUrls": true,
-  "trailingSlash": false
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
