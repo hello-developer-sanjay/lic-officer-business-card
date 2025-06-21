@@ -1,1 +1,112 @@
-/*add styles when needed*/
+.footer {
+  background: linear-gradient(180deg, #0A1C14, #0A0506);
+  color: #E4ECEF;
+  padding: 2rem 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-brand,
+.footer-links,
+.footer-contact,
+.footer-cta {
+  text-align: center;
+}
+
+.footer-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #FFD700;
+}
+
+.footer-brand p,
+.footer-bottom p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.footer-nav,
+.footer-social {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-nav li,
+.footer-social li {
+  margin: 0.5rem 0;
+}
+
+.footer-link,
+.footer-social-link {
+  color: #E4ECEF;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover,
+.footer-social-link:hover {
+  color: #FFD700;
+}
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.footer-icon {
+  font-size: 1.2rem;
+}
+
+.cta-button {
+  display: inline-block;
+  background: #FFD700;
+  color: #0A1C14;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 1rem;
+  transition: background 0.3s ease;
+}
+
+.cta-button:hover {
+  background: #E6C200;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #E4ECEF33;
+  font-size: 0.85rem;
+}
+
+.lang-hidden {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .footer-container {
+    grid-template-columns: repeat(4, 1fr);
+    text-align: left;
+  }
+
+  .footer-brand,
+  .footer-links,
+  .footer-contact,
+  .footer-cta {
+    text-align: left;
+  }
+}
