@@ -315,7 +315,7 @@ const ProfileImage = styled(motion.img)`
 
 const Link = styled.a`
   text-decoration: none;
-  color: #fff;
+  color: #3f0e03;
   margin: 5px 0;
 
   &:hover {
@@ -330,7 +330,7 @@ const ContactTextArea = styled.textarea`
   width: 100%;
   resize: vertical;
   font-size: 1rem;
-  color: #fff;
+  color: #3f0e03;
   background-color: #1a1a1a;
   transition: box-shadow 0.3s ease;
 
@@ -473,7 +473,7 @@ const Introduction = styled(motion.p)`
   max-width: 800px;
   text-align: center;
 
-  color: #ffffff; /* White on hover */
+  color:rgb(27, 2, 2); /* White on hover */
   font-family: 'Playfair Display', serif;
 
   
@@ -1037,14 +1037,14 @@ Join hands with Jitendra Patidar and the LIC India team today to experience the 
     📞 Jitendra Patidar <span className="light"> LIC Neemuch Contact | Mobile Number : </span>{' '}
       <a href="tel:+917987235207" id="contactNumber" style={{ textDecoration: 'none', color: '#007bff', fontWeight: 'bold' }}>+91 7987 235 207</a> 📞 | OR |
       
-      <button onClick={copyContactNumber} style={{ marginLeft: '4px', color: '#fff', padding: '2px 4px', border: '2px solid #ff6b6b', borderRadius: '30px', cursor: 'pointer' }}>Copy Number</button>
+      <button onClick={copyContactNumber} style={{ marginLeft: '4px', color: '#3f0e03', padding: '2px 4px', border: '2px solid #ff6b6b', borderRadius: '30px', cursor: 'pointer' }}>Copy Number</button>
     </Next>
 
     <Next>
   🔗 <span className="light">Jitendra Patidar's Instagram ID : </span>{' '}
   <a href="https://www.instagram.com/jay7268patidar"style={{ textDecoration: 'none', color: '#007bff', fontWeight: 'bold' }} id="instaID" target="_blank">jay7268patidar</a>
   {' '} | OR | {' '}
-  <button onClick={copyInstaID} style={{ marginLeft: '4px', color: '#fff', padding: '2px 4px', border: '2px solid #ff6b6b', borderRadius: '30px', cursor: 'pointer' }}>Copy Insta ID</button>
+  <button onClick={copyInstaID} style={{ marginLeft: '4px', color: '#3f0e03', padding: '2px 4px', border: '2px solid #ff6b6b', borderRadius: '30px', cursor: 'pointer' }}>Copy Insta ID</button>
 </Next>
 
 
