@@ -603,7 +603,7 @@ useEffect(() => {
             progress: undefined,
             style: {
               background: "#487503", 
-              color: "#fff", 
+              color: "#3f0e03", 
               boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)", 
               borderRadius: "10px", 
             },
