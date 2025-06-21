@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaInstagram, FaLinkedin, FaPhone, FaWhatsapp } from 'react-icons/fa';
-import '../styles/benefit.css';
+import './Footer.css';
 
 const Footer = () => {
   return (
@@ -29,13 +29,13 @@ const Footer = () => {
             <span lang="hi" className="lang-hidden">एलआईसी नीमच का अन्वेषण करें</span>
           </h3>
           <ul className="footer-nav">
-            <li><a href="https://www.licneemuch.space/" className="footer-link" aria-label="Visit LIC Neemuch Homepage">Home</a></li>
-            <li><a href="https://www.licneemuch.space/services" className="footer-link" aria-label="Explore Insurance Services">Services</a></li>
-            <li><a href="https://www.licneemuch.space/reviews" className="footer-link" aria-label="View Customer Reviews">Reviews</a></li>
-            <li><a href="https://www.licneemuch.space/join" className="footer-link" aria-label="Join as LIC Agent">Join as Agent</a></li>
-            <li><a href="https://www.licneemuch.space/about" className="footer-link" aria-label="About LIC Neemuch">About</a></li>
-            <li><a href="https://www.licneemuch.space/faqs" className="footer-link" aria-label="View LIC FAQs">FAQs</a></li>
-            <li><a href="https://www.licneemuch.space/bimasakhi" className="footer-link" aria-label="Bima Sakhi Yojana">Bima Sakhi Yojana</a></li>
+            <li><a href="https://www.licneemuch.space/" className="footer-link" target="_blank" rel="noopener noreferrer" aria-label="Visit LIC Neemuch Homepage">Home</a></li>
+            <li><a href="https://www.licneemuch.space/services" className="footer-link" target="_blank" rel="noopener noreferrer" aria-label="Explore Insurance Services">Services</a></li>
+            <li><a href="https://www.licneemuch.space/reviews" className="footer-link" target="_blank" rel="noopener noreferrer" aria-label="View Customer Reviews">Reviews</a></li>
+            <li><a href="https://www.licneemuch.space/join" className="footer-link" target="_blank" rel="noopener noreferrer" aria-label="Join as LIC Agent">Join as Agent</a></li>
+            <li><a href="https://www.licneemuch.space/about" className="footer-link" target="_blank" rel="noopener noreferrer" aria-label="About LIC Neemuch">About</a></li>
+            <li><a href="https://www.licneemuch.space/faqs" className="footer-link" target="_blank" rel="noopener noreferrer" aria-label="View LIC FAQs">FAQs</a></li>
+            <li><a href="https://www.licneemuch.space/bimasakhi" className="footer-link" target="_blank" rel="noopener noreferrer" aria-label="Bima Sakhi Yojana">Bima Sakhi Yojana</a></li>
           </ul>
         </div>
 
@@ -98,6 +98,8 @@ const Footer = () => {
           <a
             href="https://www.licneemuch.space/join"
             className="cta-button"
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="Claim Free Insurance Consultation"
           >
             <span lang="en">🎁 Free Insurance Consultation</span>
