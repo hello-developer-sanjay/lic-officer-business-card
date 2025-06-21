@@ -1026,8 +1026,7 @@ Join hands with Jitendra Patidar and the LIC India team today to experience the 
       boxShadow: '0px 0px 10px #ffd700'
     }}
   >
-    <span className="call-text">अभी अधिकारी को कॉल करें</span>
-    <span role="img" aria-label="Phone" className="bounce">📞</span>
+<span style={{ color: 'black' }} className="call-text">अभी अधिकारी को कॉल करें</span>    <span role="img" aria-label="Phone" className="bounce">📞</span>
   </button>
   {' '} जीतेन्द्र पाटीदार एलआईसी विकास अधिकारी (डीओ) नीमच 
   {' '}<span className="light">संपर्क करे</span>
