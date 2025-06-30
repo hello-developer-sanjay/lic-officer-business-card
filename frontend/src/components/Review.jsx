@@ -91,7 +91,7 @@ const Review = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get('https://lic-backend-8jun.onrender.com/api/lic/reviews');
+        const response = await axios.get('https://2rw0yilbbl.execute-api.ap-south-1.amazonaws.com/prod/api/lic/reviews');
         setReviews(response.data);
       } catch (error) {
         console.error('Error fetching reviews:', error);
@@ -106,7 +106,7 @@ const Review = () => {
     if (!username || !comment || submitting) return; // Prevent submission while already submitting
     try {
       setSubmitting(true); // Set submitting to true when starting the submission
-      const response = await axios.post('https://lic-backend-8jun.onrender.com/api/lic/reviews', {
+      const response = await axios.post('https://2rw0yilbbl.execute-api.ap-south-1.amazonaws.com/prod/api/lic/reviews', {
         username,
         comment,
       });
