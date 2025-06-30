@@ -13,7 +13,7 @@ const StarRating = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://lic-backend-8jun.onrender.com/api/lic/ratings');
+        const response = await axios.get('https://2rw0yilbbl.execute-api.ap-south-1.amazonaws.com/prod/api/lic/ratings');
         const { data } = response;
         setUsersCount(data.length);
         setAverageRating(
@@ -39,12 +39,12 @@ const StarRating = () => {
         localStorage.setItem('currentUser', randomUserId);
       }
   
-      await axios.post('https://lic-backend-8jun.onrender.com/api/lic/ratings', {
+      await axios.post('https://2rw0yilbbl.execute-api.ap-south-1.amazonaws.com/prod/api/lic/ratings', {
         userId: localStorage.getItem('currentUser'),
         rating: newRating,
       });
   
-      const response = await axios.get('https://lic-backend-8jun.onrender.com/api/lic/ratings');
+      const response = await axios.get('https://2rw0yilbbl.execute-api.ap-south-1.amazonaws.com/prod/api/lic/ratings');
       const { data } = response;
       setUsersCount(data.length);
       setAverageRating(
