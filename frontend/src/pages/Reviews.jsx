@@ -88,7 +88,7 @@ const Button = styled.button`
 
 const Reviews = () => {
   const footerRef = useRef(null);
-  const API_URL = 'https://lic-backend-8jun.onrender.com';
+  const API_URL = 'https://2rw0yilbbl.execute-api.ap-south-1.amazonaws.com/prod';
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
