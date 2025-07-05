@@ -40,7 +40,7 @@ const LoadingText = styled.div`
 
 const KileshwarMahadevPage = memo(() => {
   const [ssrHtml, setSsrHtml] = useState('');
-  const [loading, setLoading] = useState(!window.__lic_case_study_DATA__);
+  const [loading, setLoading] = useState(!window.__homepage_card_DATA__);
 
   useEffect(() => {
     // Load existing and new scripts dynamically
@@ -61,11 +61,11 @@ const KileshwarMahadevPage = memo(() => {
     });
 
     // Handle SSR data
-    if (window.__lic_case_study_DATA__) {
+    if (window.__homepage_card_DATA__) {
       setSsrHtml(document.documentElement.outerHTML);
       setLoading(false);
     } else {
-      fetch('https://gj48940cgb.execute-api.ap-south-1.amazonaws.com/prod')
+      fetch('https://mrooyp7uw6.execute-api.ap-south-1.amazonaws.com/prod')
         .then((res) => {
           if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
           return res.text();
@@ -76,7 +76,7 @@ const KileshwarMahadevPage = memo(() => {
           document.dispatchEvent(new Event('DOMContentLoaded'));
         })
         .catch((error) => {
-          console.error('[licCaseStudy.jsx] Error fetching SSR HTML:', error);
+          console.error('[homePageCard.jsx] Error fetching SSR HTML:', error);
           setLoading(false);
         });
     }
