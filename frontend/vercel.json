@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "https://mrooyp7uw6.execute-api.ap-south-1.amazonaws.com/prod"
+      "destination": "https://mrooyp7uw6.execute-api.ap-south-1.amazonaws.com/prod/"
     }
   ],
   "headers": [
