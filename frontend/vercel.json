@@ -1,8 +1,12 @@
 {
   "rewrites": [
     {
+      "source": "/",
+      "destination": "https://mrooyp7uw6.execute-api.ap-south-1.amazonaws.com/prod/"
+    },
+    {
       "source": "/(.*)",
-      "destination": "https://mrooyp7uw6.execute-api.ap-south-1.amazonaws.com/prod/$1"
+      "destination": "/index.html"
     }
   ],
   "headers": [
