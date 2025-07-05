@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import homePage from './pages/homePage';
+
 import Reviews from './pages/Reviews';
 import { useLocation } from 'react-router-dom';
 import Footer from './components/Footer';
@@ -21,6 +23,8 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/reviews" element={<Reviews />} />
+                    <Route path="/" element={<homePage />} />
+
           <Route path="/join" element={<div>Join Page (TBD)</div>} />
           <Route path="/services" element={<div>Services Page (TBD)</div>} />
           <Route path="/about" element={<div>About Page (TBD)</div>} />
