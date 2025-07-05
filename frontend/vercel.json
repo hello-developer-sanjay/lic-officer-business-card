@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/:path*",
-      "destination": "https://mrooyp7uw6.execute-api.ap-south-1.amazonaws.com/prod/:path*"
+      "source": "/*",
+      "destination": "https://mrooyp7uw6.execute-api.ap-south-1.amazonaws.com/prod*"
     }
   ],
   "headers": [
