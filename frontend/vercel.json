@@ -3,11 +3,6 @@
     {
       "source": "/",
       "destination": "https://js2h38fca8.execute-api.ap-south-1.amazonaws.com/prod"
-    },
-   
-    {
-     "source": "/(.*)",
-      "destination": "/index.html"
     }
   ],
   "headers": [
