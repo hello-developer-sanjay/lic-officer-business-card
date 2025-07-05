@@ -38,7 +38,7 @@ const LoadingText = styled.div`
   }
 `;
 
-const KileshwarMahadevPage = memo(() => {
+const homePage = memo(() => {
   const [ssrHtml, setSsrHtml] = useState('');
   const [loading, setLoading] = useState(!window.__lic_homepage_DATA__);
 
@@ -108,4 +108,4 @@ const KileshwarMahadevPage = memo(() => {
   );
 });
 
-export default KileshwarMahadevPage;
+export default homePage;
