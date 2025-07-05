@@ -20,7 +20,6 @@ function App() {
       <div className="relative z-0">
         <ScrollToTop />
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/join" element={<div>Join Page (TBD)</div>} />
           <Route path="/services" element={<div>Services Page (TBD)</div>} />
