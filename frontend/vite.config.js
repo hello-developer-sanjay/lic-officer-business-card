@@ -7,10 +7,12 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     emptyOutDir: true,
-    // Prevent Vite from generating index.html
+    // Copy public directory assets without bundling JavaScript
+    copyPublicDir: true,
+    // Disable Rollup bundling by setting no entries
     rollupOptions: {
-      input: {},
       output: {
+        // Ensure assets are output with their original names
         entryFileNames: '[name].js',
         chunkFileNames: '[name].js',
         assetFileNames: '[name].[ext]'
@@ -24,6 +26,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: true,
         rewrite: (path) => path
+      },
+      '/scripts': {
+        target: 'http://localhost:5173',
+        changeOrigin: true,
+        secure: false
       }
     }
   }
