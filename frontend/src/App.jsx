@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './homePage';
+import homePage from './pages/homePage';
 import Reviews from './pages/Reviews';
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<homePage />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/join" element={<div>Join Page (TBD)</div>} />
         <Route path="/services" element={<div>Services Page (TBD)</div>} />
