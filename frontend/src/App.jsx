@@ -19,7 +19,6 @@ const ScrollToTop = () => {
 function App() {
   return (
     <Router>
-      <div className="relative z-0">
         <ScrollToTop />
         <Routes>
           <Route path="/reviews" element={<Reviews />} />
@@ -30,7 +29,6 @@ function App() {
           <Route path="/about" element={<div>About Page (TBD)</div>} />
         </Routes>
 
-      </div>
     </Router>
   );
 }
