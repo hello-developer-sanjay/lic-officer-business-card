@@ -25,7 +25,6 @@ function App() {
           <Route path="/services" element={<div>Services Page (TBD)</div>} />
           <Route path="/about" element={<div>About Page (TBD)</div>} />
         </Routes>
-                <Footer />
 
       </div>
     </Router>
