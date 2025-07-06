@@ -1,6 +1,6 @@
 import { memo, useEffect } from 'react';
 import styled from 'styled-components';
-import ReactDOM from 'react-dom/client';
+
 const Layout = styled.div`
   display: flex;
   min-height: 100vh;
@@ -43,15 +43,10 @@ const LicHome = memo(() => {
   return (
     <Layout>
       <Content>
-        <div dangerouslySetInnerHTML={{ __html: window.__INITIAL_HTML__ || document.getElementById('root').innerHTML }} />
+        <div dangerouslySetInnerHTML={{ __html: window.__INITIAL_HTML__ || '' }} />
       </Content>
     </Layout>
   );
 });
-
-if (typeof window !== 'undefined' && window.document) {
-  const root = ReactDOM.createRoot(document.getElementById('root'));
-  root.hydrateRoot(<LicHome />);
-}
 
 export default LicHome;
