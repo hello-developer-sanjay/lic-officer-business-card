@@ -15,28 +15,46 @@ const Content = styled.div`
 
 const LicHome = memo(() => {
   useEffect(() => {
-    const scripts = [
-      { src: '/scripts/sidebarToggle.js', defer: true },
-      { src: '/scripts/scrollToTop.js', defer: true },
-      { src: '/scripts/calculatePremium.js', defer: true },
-      { src: '/scripts/langToggleHome.js', defer: true },
-      { src: '/scripts/search.js', defer: true },
-      { src: '/scripts/carousel.js', defer: true },
-      { src: '/scripts/audio.js', defer: true },
-    ];
+    // Inline script logic (no external dependencies)
+    function toggleSidebar() {
+      const menu = document.getElementById('nav-menu');
+      const toggle = document.querySelector('.nav-toggle');
+      if (menu && toggle) {
+        menu.classList.toggle('active');
+        toggle.setAttribute('aria-expanded', menu.classList.contains('active'));
+      }
+    }
 
-    scripts.forEach(({ src, defer }) => {
-      const script = document.createElement('script');
-      script.src = src;
-      script.defer = defer;
-      document.head.appendChild(script);
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.querySelector('.nav-toggle');
+      if (toggle) {
+        toggle.addEventListener('click', toggleSidebar);
+      }
+
+      const langButtons = document.querySelectorAll('.lang-btn');
+      langButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          langButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          const lang = button.getAttribute('data-lang');
+          document.querySelectorAll('[lang]').forEach(el => {
+            el.classList.remove('lang-visible', 'lang-hidden');
+            el.classList.add(lang === 'en' ? 'lang-visible' : 'lang-hidden');
+          });
+        });
+      });
     });
 
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Cleanup
     return () => {
-      scripts.forEach(({ src }) => {
-        const script = document.querySelector(`script[src="${src}"]`);
-        if (script) script.remove();
-      });
+      document.removeEventListener('DOMContentLoaded', toggleSidebar);
+      const langButtons = document.querySelectorAll('.lang-btn');
+      langButtons.forEach(button => button.removeEventListener('click', toggleSidebar));
     };
   }, []);
 
