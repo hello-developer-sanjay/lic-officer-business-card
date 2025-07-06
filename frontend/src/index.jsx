@@ -1,11 +1,11 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { hydrateRoot } from 'react-dom/client'; // ✅ use hydrateRoot
 import App from './App';
 
-const root = document.getElementById('root');
-if (root) {
-  const reactRoot = createRoot(root);
-  reactRoot.render(
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  hydrateRoot(
+    rootElement,
     <React.StrictMode>
       <App />
     </React.StrictMode>
