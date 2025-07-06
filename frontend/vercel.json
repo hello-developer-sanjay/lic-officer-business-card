@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod"
+      "source": "/",
+      "destination": "https://gj48940cgb.execute-api.ap-south-1.amazonaws.com/prod"
     }
   ]
 }
