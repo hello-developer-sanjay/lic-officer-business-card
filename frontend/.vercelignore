@@ -1,1 +1,7 @@
-/**.Config} */
+dist
+build
+index.html
+index.js
+vite.config.js
+public
+out
