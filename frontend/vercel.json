@@ -5,11 +5,8 @@
       "destination": "https://rvbp7z5ibb.execute-api.ap-south-1.amazonaws.com/prod"
     }
   ],
+  "ignoreBuildStep": true,  // 🛑 this stops the build step entirely
+  "outputDirectory": "",    // 🛑 no static output folder
   "cleanUrls": true,
-  "trailingSlash": false,
-  "redirects": [],
-  "headers": [],
-  "build": {
-    "env": {}
-  }
+  "trailingSlash": false
 }
