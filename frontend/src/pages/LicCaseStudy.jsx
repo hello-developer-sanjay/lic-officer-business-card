@@ -15,21 +15,21 @@ const Content = styled.div`
 
 const LicHome = memo(() => {
   useEffect(() => {
-    // Ensure scripts are loaded if not already present
-    const scriptUrls = [
-      '/scripts/sidebarToggle.js',
-      '/scripts/scrollToTop.js',
-      '/scripts/search.js',
-      '/scripts/audio.js',
-      '/scripts/faqToggle.js',
-      '/scripts/langToggleCaseStudy.js',
+    // Load existing and new scripts dynamically
+    const scripts = [
+      { src: '/scripts/sidebarToggle.js', defer: true },
+      { src: '/scripts/scrollToTop.js', defer: true },
+      { src: '/scripts/faqToggle.js', defer: true },
+      { src: '/scripts/search.js', defer: true },
+      { src: '/scripts/langToggleCaseStudy.js', defer: true },
+      { src: '/scripts/audio.js', defer: true },
     ];
 
-    scriptUrls.forEach((url) => {
+    scripts.forEach(({ src, defer }) => {
       const script = document.createElement('script');
-      script.src = url;
-      script.defer = true;
-      document.body.appendChild(script);
+      script.src = src;
+      script.defer = defer;
+      document.head.appendChild(script);
     });
 
     // Cleanup
