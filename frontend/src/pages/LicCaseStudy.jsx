@@ -1,7 +1,6 @@
 import { memo, useEffect } from 'react';
 import styled from 'styled-components';
 import ReactDOM from 'react-dom/client';
-
 const Layout = styled.div`
   display: flex;
   min-height: 100vh;
