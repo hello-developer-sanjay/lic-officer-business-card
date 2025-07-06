@@ -1,5 +1,6 @@
 import { memo, useEffect } from 'react';
 import styled from 'styled-components';
+import ReactDOM from 'react-dom';
 
 const Layout = styled.div`
   display: flex;
@@ -21,7 +22,7 @@ const LicHome = memo(() => {
       { src: '/scripts/scrollToTop.js', defer: true },
       { src: '/scripts/faqToggle.js', defer: true },
       { src: '/scripts/search.js', defer: true },
-      { src: '/scripts/langToggleHome.js', defer: true }, // Corrected script
+      { src: '/scripts/langToggleHome.js', defer: true },
       { src: '/scripts/audio.js', defer: true },
     ];
 
@@ -44,10 +45,15 @@ const LicHome = memo(() => {
   return (
     <Layout>
       <Content>
-        <div dangerouslySetInnerHTML={{ __html: document.documentElement.outerHTML }} />
+        {/* Content will be hydrated by the server-rendered HTML */}
       </Content>
     </Layout>
   );
 });
+
+// Hydrate the app on client-side
+if (typeof window !== 'undefined' && window.document) {
+  ReactDOM.hydrate(<LicHome />, document.getElementById('root'));
+}
 
 export default LicHome;
