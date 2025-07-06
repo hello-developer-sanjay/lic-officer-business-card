@@ -14,15 +14,12 @@ const Content = styled.div`
   padding: 1rem;
 `;
 
-// Empty component to serve as the hydration root
 const LicHome = memo(() => {
   useEffect(() => {
-    // Load scripts dynamically after DOM is ready
     const scripts = [
       { src: '/scripts/sidebarToggle.js', defer: true },
       { src: '/scripts/scrollToTop.js', defer: true },
       { src: '/scripts/calculatePremium.js', defer: true },
-      { src: '/scripts/faqToggle.js', defer: true },
       { src: '/scripts/langToggleHome.js', defer: true },
       { src: '/scripts/search.js', defer: true },
       { src: '/scripts/carousel.js', defer: true },
@@ -36,7 +33,6 @@ const LicHome = memo(() => {
       document.head.appendChild(script);
     });
 
-    // Cleanup on unmount
     return () => {
       scripts.forEach(({ src }) => {
         const script = document.querySelector(`script[src="${src}"]`);
@@ -48,13 +44,12 @@ const LicHome = memo(() => {
   return (
     <Layout>
       <Content>
-        {/* Hydration will attach to the server-rendered DOM inside #root */}
+        <div dangerouslySetInnerHTML={{ __html: window.__INITIAL_HTML__ || document.getElementById('root').innerHTML }} />
       </Content>
     </Layout>
   );
 });
 
-// Hydrate the server-rendered DOM
 if (typeof window !== 'undefined' && window.document) {
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.hydrateRoot(<LicHome />);
