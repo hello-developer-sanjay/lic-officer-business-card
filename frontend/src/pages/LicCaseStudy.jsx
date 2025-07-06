@@ -15,46 +15,29 @@ const Content = styled.div`
 
 const LicHome = memo(() => {
   useEffect(() => {
-    // Inline script logic (no external dependencies)
-    function toggleSidebar() {
-      const menu = document.getElementById('nav-menu');
-      const toggle = document.querySelector('.nav-toggle');
-      if (menu && toggle) {
-        menu.classList.toggle('active');
-        toggle.setAttribute('aria-expanded', menu.classList.contains('active'));
-      }
-    }
+    // Ensure scripts are loaded if not already present
+    const scriptUrls = [
+      '/public/scripts/sidebarToggle.js',
+      '/public/scripts/scrollToTop.js',
+      '/public/scripts/search.js',
+      '/public/scripts/audio.js',
+      '/public/scripts/faqToggle.js',
+      '/public/scripts/langToggleCaseStudy.js',
+    ];
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const toggle = document.querySelector('.nav-toggle');
-      if (toggle) {
-        toggle.addEventListener('click', toggleSidebar);
-      }
-
-      const langButtons = document.querySelectorAll('.lang-btn');
-      langButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          langButtons.forEach(btn => btn.classList.remove('active'));
-          button.classList.add('active');
-          const lang = button.getAttribute('data-lang');
-          document.querySelectorAll('[lang]').forEach(el => {
-            el.classList.remove('lang-visible', 'lang-hidden');
-            el.classList.add(lang === 'en' ? 'lang-visible' : 'lang-hidden');
-          });
-        });
-      });
+    scriptUrls.forEach((url) => {
+      const script = document.createElement('script');
+      script.src = url;
+      script.defer = true;
+      document.body.appendChild(script);
     });
-
-    function scrollToSection(id) {
-      const element = document.getElementById(id);
-      if (element) element.scrollIntoView({ behavior: 'smooth' });
-    }
 
     // Cleanup
     return () => {
-      document.removeEventListener('DOMContentLoaded', toggleSidebar);
-      const langButtons = document.querySelectorAll('.lang-btn');
-      langButtons.forEach(button => button.removeEventListener('click', toggleSidebar));
+      scriptUrls.forEach((url) => {
+        const script = document.querySelector(`script[src="${url}"]`);
+        if (script) document.body.removeChild(script);
+      });
     };
   }, []);
 
