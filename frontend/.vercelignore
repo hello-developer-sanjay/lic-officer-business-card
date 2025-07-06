@@ -1,0 +1,8 @@
+dist
+build
+index.html
+index.js
+index.css
+vite.config.js
+public/
+out/
