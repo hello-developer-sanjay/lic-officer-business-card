@@ -1,44 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/",
+      "source": "/(.*)",
       "destination": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod"
-    },
-    {
-      "source": "/assets/(.*)",
-      "destination": "/assets/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-store, no-cache, must-revalidate, proxy-revalidate"
-        },
-        {
-          "key": "X-Debug-Rewrite",
-          "value": "SSR-Proxy"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        },
-        {
-          "key": "X-Debug-Rewrite",
-          "value": "CSR-Fallback"
-        }
-      ]
     }
   ]
 }
