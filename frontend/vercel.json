@@ -5,27 +5,11 @@
       "destination": "https://rvbp7z5ibb.execute-api.ap-south-1.amazonaws.com/prod"
     }
   ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; connect-src 'self' https://mrooyp7uw6.execute-api.ap-south-1.amazonaws.com https://lic-neemuch-jitendra-patidar.vercel.app; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://licneemuch.space https://d12uvtgcxr5qif.cloudfront.net; font-src 'self' data:; frame-src 'self' https://*.google.com;"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        }
-      ]
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [],
+  "headers": [],
+  "build": {
+    "env": {}
+  }
 }
