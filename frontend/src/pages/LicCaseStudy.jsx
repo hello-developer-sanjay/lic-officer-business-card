@@ -43,13 +43,20 @@ const LicHome = memo(() => {
   const [loading, setLoading] = useState(!window.__lic_home_DATA__);
 
   useEffect(() => {
-    // Load existing and new scripts dynamically
+    if (window.__lic_home_DATA__) {
+      setSsrHtml(document.documentElement.outerHTML);
+      setLoading(false);
+    } else {
+      console.error('SSR data not found, expected __lic_home_DATA__');
+      setLoading(false); // Fallback to empty or error state
+    }
+
     const scripts = [
       { src: '/scripts/sidebarToggle.js', defer: true },
       { src: '/scripts/scrollToTop.js', defer: true },
       { src: '/scripts/faqToggle.js', defer: true },
       { src: '/scripts/search.js', defer: true },
-      { src: '/scripts/langToggleCaseStudy.js', defer: true },
+      { src: '/scripts/langToggleHome.js', defer: true }, // Corrected script
       { src: '/scripts/audio.js', defer: true },
     ];
 
@@ -60,28 +67,6 @@ const LicHome = memo(() => {
       document.head.appendChild(script);
     });
 
-    // Handle SSR data
-    if (window.__lic_home_DATA__) {
-      setSsrHtml(document.documentElement.outerHTML);
-      setLoading(false);
-    } else {
-      fetch('https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod')
-        .then((res) => {
-          if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-          return res.text();
-        })
-        .then((html) => {
-          setSsrHtml(html);
-          setLoading(false);
-          document.dispatchEvent(new Event('DOMContentLoaded'));
-        })
-        .catch((error) => {
-          console.error('[LicHome.jsx] Error fetching SSR HTML:', error);
-          setLoading(false);
-        });
-    }
-
-    // Cleanup
     return () => {
       scripts.forEach(({ src }) => {
         const script = document.querySelector(`script[src="${src}"]`);
