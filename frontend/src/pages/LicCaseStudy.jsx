@@ -38,9 +38,9 @@ const LoadingText = styled.div`
   }
 `;
 
-const KileshwarMahadevPage = memo(() => {
+const LicHome = memo(() => {
   const [ssrHtml, setSsrHtml] = useState('');
-  const [loading, setLoading] = useState(!window.__lic_case_study_DATA__);
+  const [loading, setLoading] = useState(!window.__lic_home_DATA__);
 
   useEffect(() => {
     // Load existing and new scripts dynamically
@@ -61,11 +61,11 @@ const KileshwarMahadevPage = memo(() => {
     });
 
     // Handle SSR data
-    if (window.__lic_case_study_DATA__) {
+    if (window.__lic_home_DATA__) {
       setSsrHtml(document.documentElement.outerHTML);
       setLoading(false);
     } else {
-      fetch('https://gj48940cgb.execute-api.ap-south-1.amazonaws.com/prod/lic-case-study')
+      fetch('https://gj48940cgb.execute-api.ap-south-1.amazonaws.com/prod')
         .then((res) => {
           if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
           return res.text();
@@ -76,7 +76,7 @@ const KileshwarMahadevPage = memo(() => {
           document.dispatchEvent(new Event('DOMContentLoaded'));
         })
         .catch((error) => {
-          console.error('[licCaseStudy.jsx] Error fetching SSR HTML:', error);
+          console.error('[LicHome.jsx] Error fetching SSR HTML:', error);
           setLoading(false);
         });
     }
@@ -94,7 +94,7 @@ const KileshwarMahadevPage = memo(() => {
     return (
       <LoadingContainer>
         <RingLoader color="#22c55e" size={50} />
-        <LoadingText>Loading Case  Study...</LoadingText>
+        <LoadingText>Loading LIC Neemuch Home...</LoadingText>
       </LoadingContainer>
     );
   }
@@ -108,4 +108,4 @@ const KileshwarMahadevPage = memo(() => {
   );
 });
 
-export default KileshwarMahadevPage;
+export default LicHome;
