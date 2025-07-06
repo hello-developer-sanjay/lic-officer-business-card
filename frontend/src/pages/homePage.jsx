@@ -61,7 +61,7 @@ const homePage = memo(() => {
     });
 
     // Handle SSR data
-    if (window.__homePage_card_DATA__) {
+    if (window.__homePage_DATA__) {
       setSsrHtml(document.documentElement.outerHTML);
       setLoading(false);
     } else {
