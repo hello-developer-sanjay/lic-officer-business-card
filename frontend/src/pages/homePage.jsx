@@ -40,7 +40,7 @@ const LoadingText = styled.div`
 
 const KileshwarMahadevPage = memo(() => {
   const [ssrHtml, setSsrHtml] = useState('');
-  const [loading, setLoading] = useState(!window.__homepage_card_DATA__);
+  const [loading, setLoading] = useState(!window.__homePage_DATA__);
 
   useEffect(() => {
     // Load existing and new scripts dynamically
@@ -61,7 +61,7 @@ const KileshwarMahadevPage = memo(() => {
     });
 
     // Handle SSR data
-    if (window.__homepage_card_DATA__) {
+    if (window.__homePage_card_DATA__) {
       setSsrHtml(document.documentElement.outerHTML);
       setLoading(false);
     } else {
