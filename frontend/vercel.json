@@ -1,14 +1,21 @@
 {
   "version": 2,
-
+  "builds": [
+    { "src": "public/**/*", "use": "@vercel/static" },
+    { "src": "build/**/*", "use": "@vercel/static" }
+  ],
   "routes": [
+    {
+      "src": "/public/scripts/(.*)",
+      "dest": "/public/scripts/$1"
+    },
     {
       "src": "/",
       "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/build/index.html"
     }
   ]
 }
