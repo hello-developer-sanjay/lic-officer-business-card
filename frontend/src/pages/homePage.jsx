@@ -65,7 +65,7 @@ const KileshwarMahadevPage = memo(() => {
       setSsrHtml(document.documentElement.outerHTML);
       setLoading(false);
     } else {
-      fetch('https://mrooyp7uw6.execute-api.ap-south-1.amazonaws.com/prod')
+      fetch('https://rvbp7z5ibb.execute-api.ap-south-1.amazonaws.com/prod')
         .then((res) => {
           if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
           return res.text();
