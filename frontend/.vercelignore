@@ -1,8 +1,1 @@
-index.html
-index.js
-build
-dist
-out
-vite.config.js
-public
-frontend
+/** @type {import('tailwindcss').Config} */
