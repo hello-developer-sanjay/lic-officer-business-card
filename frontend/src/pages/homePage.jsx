@@ -2,7 +2,6 @@ import { memo, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { RingLoader } from 'react-spinners';
 
-// Styled Components (matching LicNeemuchPage.jsx)
 const Layout = styled.div`
   display: flex;
   min-height: 100vh;
