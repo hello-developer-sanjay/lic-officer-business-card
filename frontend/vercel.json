@@ -1,17 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "lic-neemuch-jitendra-patidar.vercel.app"
-        },
-        {
-          "type": "path",
-          "value": "/"
-        }
-      ],
+      "source": "/",
       "destination": "https://rvbp7z5ibb.execute-api.ap-south-1.amazonaws.com/prod"
     },
     {
@@ -21,15 +11,28 @@
   ],
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/",
       "headers": [
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; connect-src 'self' https://rvbp7z5ibb.execute-api.ap-south-1.amazonaws.com https://lic-neemuch-jitendra-patidar.vercel.app; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://licneemuch.space https://d12uvtgcxr5qif.cloudfront.net https://maps.googleapis.com; font-src 'self' data:; frame-src 'self' https://*.google.com;"
-        },
         {
           "key": "Cache-Control",
           "value": "no-store, no-cache, must-revalidate, proxy-revalidate"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; connect-src 'self' https://rvbp7z5ibb.execute-api.ap-south-1.amazonaws.com https://lic-neemuch-jitendra-patidar.vercel.app; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://licneemuch.space https://d12uvtgcxr5qif.cloudfront.net https://maps.googleapis.com; font-src 'self' data:; frame-src 'self' https://*.google.com;"
+        }
+      ]
+    },
+    {
+      "source": "/((?!api/|assets/).*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; connect-src 'self' https://rvbp7z5ibb.execute-api.ap-south-1.amazonaws.com https://lic-neemuch-jitendra-patidar.vercel.app; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://licneemuch.space https://d12uvtgcxr5qif.cloudfront.net https://maps.googleapis.com; font-src 'self' data:; frame-src 'self' https://*.google.com;"
         }
       ]
     }
