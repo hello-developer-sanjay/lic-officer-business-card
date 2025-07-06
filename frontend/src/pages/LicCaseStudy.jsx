@@ -1,6 +1,6 @@
 import { memo, useEffect } from 'react';
 import styled from 'styled-components';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 const Layout = styled.div`
   display: flex;
@@ -14,15 +14,18 @@ const Content = styled.div`
   padding: 1rem;
 `;
 
+// Empty component to serve as the hydration root
 const LicHome = memo(() => {
   useEffect(() => {
-    // Load scripts dynamically
+    // Load scripts dynamically after DOM is ready
     const scripts = [
       { src: '/scripts/sidebarToggle.js', defer: true },
       { src: '/scripts/scrollToTop.js', defer: true },
+      { src: '/scripts/calculatePremium.js', defer: true },
       { src: '/scripts/faqToggle.js', defer: true },
-      { src: '/scripts/search.js', defer: true },
       { src: '/scripts/langToggleHome.js', defer: true },
+      { src: '/scripts/search.js', defer: true },
+      { src: '/scripts/carousel.js', defer: true },
       { src: '/scripts/audio.js', defer: true },
     ];
 
@@ -33,7 +36,7 @@ const LicHome = memo(() => {
       document.head.appendChild(script);
     });
 
-    // Cleanup
+    // Cleanup on unmount
     return () => {
       scripts.forEach(({ src }) => {
         const script = document.querySelector(`script[src="${src}"]`);
@@ -45,15 +48,16 @@ const LicHome = memo(() => {
   return (
     <Layout>
       <Content>
-        {/* Content will be hydrated by the server-rendered HTML */}
+        {/* Hydration will attach to the server-rendered DOM inside #root */}
       </Content>
     </Layout>
   );
 });
 
-// Hydrate the app on client-side
+// Hydrate the server-rendered DOM
 if (typeof window !== 'undefined' && window.document) {
-  ReactDOM.hydrate(<LicHome />, document.getElementById('root'));
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.hydrateRoot(<LicHome />);
 }
 
 export default LicHome;
