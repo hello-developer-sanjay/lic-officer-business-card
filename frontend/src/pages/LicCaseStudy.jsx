@@ -65,7 +65,7 @@ const LicHome = memo(() => {
       setSsrHtml(document.documentElement.outerHTML);
       setLoading(false);
     } else {
-      fetch('https://gj48940cgb.execute-api.ap-south-1.amazonaws.com/prod')
+      fetch('https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod')
         .then((res) => {
           if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
           return res.text();
