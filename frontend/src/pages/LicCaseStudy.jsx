@@ -17,12 +17,12 @@ const LicHome = memo(() => {
   useEffect(() => {
     // Ensure scripts are loaded if not already present
     const scriptUrls = [
-      '/public/scripts/sidebarToggle.js',
-      '/public/scripts/scrollToTop.js',
-      '/public/scripts/search.js',
-      '/public/scripts/audio.js',
-      '/public/scripts/faqToggle.js',
-      '/public/scripts/langToggleCaseStudy.js',
+      '/scripts/sidebarToggle.js',
+      '/scripts/scrollToTop.js',
+      '/scripts/search.js',
+      '/scripts/audio.js',
+      '/scripts/faqToggle.js',
+      '/scripts/langToggleCaseStudy.js',
     ];
 
     scriptUrls.forEach((url) => {
