@@ -1,8 +1,6 @@
-import { memo, useState, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import styled from 'styled-components';
-import { RingLoader } from 'react-spinners';
 
-// Styled Components (matching LicNeemuchPage.jsx)
 const Layout = styled.div`
   display: flex;
   min-height: 100vh;
@@ -15,42 +13,9 @@ const Content = styled.div`
   padding: 1rem;
 `;
 
-const LoadingContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f9fafb;
-`;
-
-const LoadingText = styled.div`
-  margin-top: 1rem;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  color: #1f2937;
-  font-weight: normal;
-  animation: pulse 500ms ease-in-out infinite;
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
-  }
-`;
-
 const LicHome = memo(() => {
-  const [ssrHtml, setSsrHtml] = useState('');
-  const [loading, setLoading] = useState(!window.__lic_home_DATA__);
-
   useEffect(() => {
-    if (window.__lic_home_DATA__) {
-      setSsrHtml(document.documentElement.outerHTML);
-      setLoading(false);
-    } else {
-      console.error('SSR data not found, expected __lic_home_DATA__');
-      setLoading(false); // Fallback to empty or error state
-    }
-
+    // Load scripts dynamically
     const scripts = [
       { src: '/scripts/sidebarToggle.js', defer: true },
       { src: '/scripts/scrollToTop.js', defer: true },
@@ -67,6 +32,7 @@ const LicHome = memo(() => {
       document.head.appendChild(script);
     });
 
+    // Cleanup
     return () => {
       scripts.forEach(({ src }) => {
         const script = document.querySelector(`script[src="${src}"]`);
@@ -75,19 +41,10 @@ const LicHome = memo(() => {
     };
   }, []);
 
-  if (loading) {
-    return (
-      <LoadingContainer>
-        <RingLoader color="#22c55e" size={50} />
-        <LoadingText>Loading LIC Neemuch Home...</LoadingText>
-      </LoadingContainer>
-    );
-  }
-
   return (
     <Layout>
       <Content>
-        <div dangerouslySetInnerHTML={{ __html: ssrHtml }} />
+        <div dangerouslySetInnerHTML={{ __html: document.documentElement.outerHTML }} />
       </Content>
     </Layout>
   );
