@@ -1,6 +1,7 @@
 import { memo, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { RingLoader } from 'react-spinners';
+
 const Layout = styled.div`
   display: flex;
   min-height: 100vh;
@@ -41,7 +42,7 @@ const KileshwarMahadevPage = memo(() => {
   const [loading, setLoading] = useState(!window.__homepage_card_DATA__);
 
   useEffect(() => {
-    // Load existing and new scripts dynamically
+    // Load scripts dynamically
     const scripts = [
       { src: '/scripts/sidebarToggle.js', defer: true },
       { src: '/scripts/scrollToTop.js', defer: true },
@@ -58,25 +59,10 @@ const KileshwarMahadevPage = memo(() => {
       document.head.appendChild(script);
     });
 
-    // Handle SSR data
+    // Use SSR HTML if available
     if (window.__homepage_card_DATA__) {
       setSsrHtml(document.documentElement.outerHTML);
       setLoading(false);
-    } else {
-      fetch('https://rvbp7z5ibb.execute-api.ap-south-1.amazonaws.com/prod')
-        .then((res) => {
-          if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-          return res.text();
-        })
-        .then((html) => {
-          setSsrHtml(html);
-          setLoading(false);
-          document.dispatchEvent(new Event('DOMContentLoaded'));
-        })
-        .catch((error) => {
-          console.error('[homePageCard.jsx] Error fetching SSR HTML:', error);
-          setLoading(false);
-        });
     }
 
     // Cleanup
@@ -92,7 +78,7 @@ const KileshwarMahadevPage = memo(() => {
     return (
       <LoadingContainer>
         <RingLoader color="#22c55e" size={50} />
-        <LoadingText>Loading Case  Study...</LoadingText>
+        <LoadingText>Loading...</LoadingText>
       </LoadingContainer>
     );
   }
