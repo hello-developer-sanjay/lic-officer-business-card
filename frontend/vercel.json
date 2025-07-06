@@ -1,5 +1,16 @@
 {
   "version": 2,
-  "builds": [{ "src": "homePageLicSSR.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "/homePageLicSSR.js" }]
+  "builds": [
+    { "src": "build/**/*", "use": "@vercel/static" }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/build/index.html"
+    }
+  ]
 }
