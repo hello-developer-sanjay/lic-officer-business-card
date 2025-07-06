@@ -4,9 +4,5 @@
       "source": "/",
       "destination": "https://rvbp7z5ibb.execute-api.ap-south-1.amazonaws.com/prod"
     }
-  ],
-  "ignoreBuildStep": true, 
-  "outputDirectory": "",   
-  "cleanUrls": true,
-  "trailingSlash": false
+  ]
 }
