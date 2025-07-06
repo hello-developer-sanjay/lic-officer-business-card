@@ -2,7 +2,11 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "https://rvbp7z5ibb.execute-api.ap-south-1.amazonaws.com/prod"
+      "destination": "https://rvbp7z5ibb.execute-api.ap-south-1.amazonaws.com/prod/"
+    },
+    {
+      "source": "/((?!api/|assets/).*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
@@ -11,7 +15,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; connect-src 'self' https://gj48940cgb.execute-api.ap-south-1.amazonaws.com https://js2h38fca8.execute-api.ap-south-1.amazonaws.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://sanjay-patidar.vercel.app https://streetviewpixels-pa.googleapis.com https://d12uvtgcxr5qif.cloudfront.net https://maps.googleapis.com; font-src 'self' data:; frame-src 'self' https://*.google.com https://streetviewpixels-pa.googleapis.com;"
+          "value": "default-src 'self'; connect-src 'self' https://rvbp7z5ibb.execute-api.ap-south-1.amazonaws.com https://lic-neemuch-jitendra-patidar.vercel.app; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://licneemuch.space https://d12uvtgcxr5qif.cloudfront.net https://maps.googleapis.com; font-src 'self' data:; frame-src 'self' https://*.google.com;"
         }
       ]
     }
