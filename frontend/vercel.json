@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "https://z4of4q4j1g.execute-api.ap-south-1.amazonaws.com/prod"
+      "destination": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod"
     },
     {
       "source": "/((?!api/|assets/).*)",
@@ -19,7 +19,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; connect-src 'self' https://z4of4q4j1g.execute-api.ap-south-1.amazonaws.com https://lic-neemuch-jitendra-patidar.vercel.app; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://licneemuch.space https://d12uvtgcxr5qif.cloudfront.net https://maps.googleapis.com; font-src 'self' data:; frame-src 'self' https://*.google.com;"
+          "value": "default-src 'self'; connect-src 'self' https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com https://lic-neemuch-jitendra-patidar.vercel.app; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://licneemuch.space https://d12uvtgcxr5qif.cloudfront.net https://maps.googleapis.com; font-src 'self' data:; frame-src 'self' https://*.google.com;"
         }
       ]
     },
@@ -32,7 +32,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; connect-src 'self' https://z4of4q4j1g.execute-api.ap-south-1.amazonaws.com https://lic-neemuch-jitendra-patidar.vercel.app; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://licneemuch.space https://d12uvtgcxr5qif.cloudfront.net https://maps.googleapis.com; font-src 'self' data:; frame-src 'self' https://*.google.com;"
+          "value": "default-src 'self'; connect-src 'self' https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com https://lic-neemuch-jitendra-patidar.vercel.app; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://licneemuch.space https://d12uvtgcxr5qif.cloudfront.net https://maps.googleapis.com; font-src 'self' data:; frame-src 'self' https://*.google.com;"
         }
       ]
     }
