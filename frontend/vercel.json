@@ -6,7 +6,7 @@
     }
   ],
   "ignoreBuildStep": true,  // 🛑 this stops the build step entirely
-  "outputDirectory": "",    // 🛑 no static output folder
+  "outputDirectory": "",   
   "cleanUrls": true,
   "trailingSlash": false
 }
