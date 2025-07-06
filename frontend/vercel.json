@@ -5,7 +5,7 @@
       "destination": "/assets/$1"
     },
     {
-      "source": "/(.*)",
+      "source": "/",
       "destination": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod"
     }
   ]
