@@ -4,7 +4,7 @@ import LicCaseStudy from './pages/LicCaseStudy';
 import LicServices from './pages/LicServices';
 import LicJeevenAnand from './pages/LicJeevenAnand';
 import NewJeevanShanti from './pages/NewJeevanShanti';
-
+import ChildMoneyBack from './pages/ChildMoneyBack';
 
 import HealthProtectionPlus from './pages/HealthProtectionPlus';
 
@@ -16,6 +16,9 @@ const App = () => (
             <Route path="/policies/jeevan-anand" element={<LicJeevenAnand />} />
             <Route path="/policies/jeevan-shanti" element={<NewJeevanShanti />} />
             <Route path="/policies/health-protection-plus" element={<HealthProtectionPlus />} />
+            <Route path="/policies/child-money-back" element={<ChildMoneyBack />} />
+
+      
 
     </Routes>
   </Router>
