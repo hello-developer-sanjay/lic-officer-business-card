@@ -25,6 +25,10 @@
       "src": "/policies/health-protection-plus",
       "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod/policies/health-protection-plus"
     },
+     {
+      "src": "/policies/new-jeevan-shanti",
+      "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod/policies/new-jeevan-shanti"
+    },
     {
       "src": "/(.*)",
       "dest": "/build/index.html"
