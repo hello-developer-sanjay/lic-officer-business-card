@@ -14,6 +14,10 @@
       "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod"
     },
     {
+      "src": "/services",
+      "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod/services"
+    },
+    {
       "src": "/(.*)",
       "dest": "/build/index.html"
     }
