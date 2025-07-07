@@ -33,6 +33,10 @@
       "src": "/policies/child-money-back",
       "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod/policies/new-childrens-money-back"
     },
+ {
+      "src": "/policies/jeevan-labh",
+      "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod/policies/jeevan-labh"
+    },
     {
       "src": "/(.*)",
       "dest": "/build/index.html"
