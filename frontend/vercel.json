@@ -37,6 +37,12 @@
       "src": "/policies/jeevan-labh",
       "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod/policies/jeevan-labh"
     },
+ {
+      "src": "/policies/new-endowment",
+      "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod/policies/new-endowment"
+    },
+
+    
     {
       "src": "/(.*)",
       "dest": "/build/index.html"
