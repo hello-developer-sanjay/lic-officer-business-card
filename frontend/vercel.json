@@ -30,6 +30,10 @@
       "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod/policies/new-jeevan-shanti"
     },
     {
+      "src": "/policies/child-money-back",
+      "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod/policies/new-childrens-money-back"
+    },
+    {
       "src": "/(.*)",
       "dest": "/build/index.html"
     }
