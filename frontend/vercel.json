@@ -17,6 +17,14 @@
       "src": "/services",
       "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod/services"
     },
+     {
+      "src": "/policies/jeevan-anand",
+      "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod/policies/jeevan-anand"
+    },
+     {
+      "src": "/policies/health-protection-plus",
+      "dest": "https://z6hr0bza57.execute-api.ap-south-1.amazonaws.com/prod/policies/health-protection-plus"
+    },
     {
       "src": "/(.*)",
       "dest": "/build/index.html"
