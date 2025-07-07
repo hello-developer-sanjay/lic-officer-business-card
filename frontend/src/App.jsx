@@ -6,8 +6,11 @@ import LicJeevenAnand from './pages/LicJeevenAnand';
 import NewJeevanShanti from './pages/NewJeevanShanti';
 import ChildMoneyBack from './pages/ChildMoneyBack';
 import JeevanLabh from './pages/JeevanLabh';
+import NewEndowment from './pages/NewEndowment';
 
 import HealthProtectionPlus from './pages/HealthProtectionPlus';
+
+ 
 
 const App = () => (
   <Router>
@@ -19,6 +22,7 @@ const App = () => (
             <Route path="/policies/health-protection-plus" element={<HealthProtectionPlus/>} />
             <Route path="/policies/child-money-back" element={<ChildMoneyBack/>} />
             <Route path="/policies/jeevan-labh" element={<JeevanLabh/>} />
+            <Route path="/policies/new-endowment" element={<NewEndowment/>} />
 
       
 
